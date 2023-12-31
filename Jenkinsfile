@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('checkoutCode') {
+    stage('Set up Enviroment') {
       steps {
         git(url: 'https://github.com/swoopfx/Terces-jobs', branch: 'dev')
       }
