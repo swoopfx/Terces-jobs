@@ -1,0 +1,201 @@
+<?php
+
+use Authentication\Controller\AuthController;
+?>
+<?= $this->headtitle("Login"); ?>
+<?= $this->headMeta("Login to terces academy", "description"); ?>
+
+
+<section id="login_app" class="h-screen flex items-center justify-center relative overflow-hidden bg-[url('../../assets/images/hero/bg3.jpg')] bg-no-repeat bg-center bg-cover">
+
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
+    <div class="container">
+        <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+            <div class="relative overflow-hidden bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
+                <div class="p-6">
+                    <a href="">
+                        <img src="assets/images/logo-dark.png" class="mx-auto h-[24px] block dark:hidden" alt="">
+                        <img src="assets/images/logo-light.png" class="mx-auto h-[24px] dark:block hidden" alt="">
+                    </a>
+                    <h5 class="my-6 text-xl font-semibold">Login</h5>
+
+                    <div class="grid grid-cols-1">
+                        <div class="mb-4 ltr:text-left rtl:text-right">
+                            <label class="font-semibold" for="LoginEmail">Email Address: <span style="font-size: x-small; color : red;">*</span></label>
+                            <input id="LoginEmail" type="email" class="form-input mt-3 rounded-md" placeholder="name@example.com" v-model="email" @blur="validateEmail()">
+                            <span class="floating-placeholder" style="font-size: x-small; color : red;" v-if="msg.email">{{msg.email}}</span>
+                        </div>
+
+                        <div class="mb-4 ltr:text-left rtl:text-right">
+                            <label class="font-semibold" for="LoginPassword">Password: <span style="font-size: x-small; color : red;">*</span></label>
+                            <input id="LoginPassword" v-model="password" type="password" class="form-input mt-3 rounded-md" placeholder="Password:" @input="validatePassword()">
+                            <span class="floating-placeholder" style="font-size: x-small; color : red;" v-if="msg.password">{{msg.password}}</span>
+                        </div>
+
+                        <div class="flex justify-between mb-4">
+                            <div class="inline-flex items-center mb-0">
+                                <input class="form-checkbox rounded border-gray-200 dark:border-gray-800 text-emerald-600 focus:border-emerald-300 focus:ring focus:ring-offset-0 focus:ring-emerald-200 focus:ring-opacity-50 me-2" type="checkbox" value="" id="RememberMe">
+                                <label class="form-checkbox-label text-slate-400" for="RememberMe">Remember me</label>
+                            </div>
+                            
+                        </div>
+
+
+
+                        <div class="mb-4">
+
+                            <button :disabled="!isValid" class="btn bg-emerald-600  border-emerald-600  text-white rounded-md w-full" @click="submitLogin()">
+                                <div v-if="!isSubmitting"> Login / Sign in</div>
+                                <div v-else>
+                                    <svg aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
+                                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill" />
+                                    </svg>
+                                    Processing...
+                                </div>
+                            </button>
+                        </div>
+                        <div class="flex justify-between mb-4">
+                          
+                            <p class="text-slate-400 mb-0"><a href="<?= $this->url("authentication", ["controller" => "auth", "action" => "forgot-password"]) ?>" class="text-slate-400">Forgot password ?</a></p>
+                        </div>
+                        <div class="text-center mb-4">
+                            or
+                        </div>
+
+                        <div class="mb-4">
+                            <a href="<?= $google->createAuthUrl() ?>" class="btn text-center text-white rounded-md "> <img src="assets/images/company/google-logo.png" class="h-8 text-center w-8" alt=""></a>
+
+                        </div>
+
+                        <div class="text-center">
+                            <span class="text-slate-400 me-2">Don't have an account ?</span> <a href="<?= $this->url("authentication", ["controller" => "auth", "action" => "register"]) ?>" class="text-black dark:text-white font-bold">Sign Up</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- <div class="px-6 py-2 bg-slate-50 dark:bg-slate-800 text-center">
+                    <p class="mb-0 text-gray-400 font-medium">©Jobstack. Designed by <a href="https://shreethemes.in/" target="_blank" class="text-reset">Shreethemes</a>.</p>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</section><!--end section -->
+<?php
+if (isset($_GET["exx"]) && $_GET["exx"] == "err") {
+?>
+    <script>
+        Swal.fire({
+            icon: "error",
+            title: "Authentication Failed",
+            text: "The Google Authentication failed"
+        });
+    </script>
+<?php
+}
+?>
+<script>
+    const login_app = Vue.createApp({
+        data() {
+            return {
+                // emailRules: [
+                //     v => !!v || 'E-mail is required',
+                //     v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+                // ],
+                email: "",
+                password: "",
+                isValid: false,
+                msg: {
+                    email: "",
+                    isInvalidEmail: true,
+                    password: "",
+                    isInValidPassword: true,
+                },
+                isSubmitting: false,
+            }
+        },
+
+
+        methods: {
+
+            validateForm() {
+                if (!this.msg.isInvalidEmail && !this.msg.isInValidPassword) {
+                    this.isValid = true;
+                    // console.log("IsValid");
+                } else {
+                    this.isValid = false;
+
+                }
+            },
+
+
+            validateEmail() {
+
+                // console.log(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email));
+                if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email))) {
+                    this.msg.email = 'Please enter a valid email address';
+                    this.msg.isInvalidEmail = true;
+
+                } else {
+                    this.msg.email = '';
+                    this.msg.isInvalidEmail = false;
+
+                }
+                this.validateForm()
+            },
+
+            validatePassword() {
+                if (this.password == "") {
+                    this.msg.password = 'Password cannot be empty';
+                    this.msg.isInValidPassword = true;
+
+                } else if (this.password.length < 6) {
+                    this.msg.password = 'We expect your password should be more than 6 characters';
+                    this.msg.isInValidPassword = true;
+                } else {
+                    this.msg.password = '';
+                    this.msg.isInValidPassword = false;
+                }
+                this.validateForm();
+            },
+
+            submitLogin() {
+                this.isSubmitting = true;
+                if (!this.isValid) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Require Field",
+                        text: "A required field is empty"
+                    });
+                    this.isSubmitting = false;
+                } else {
+                    let formData = new FormData();
+                    formData.append("email", this.email);
+                    formData.append("password", this.password);
+
+                    axios.post("/login", formData).then((result) => {
+                        if (result.status == 200) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Successfully Logged in",
+                                text: "Redirecting"
+                            });
+                            this.isSubmitting = false;
+                        }
+                    }).catch((err) => {
+                        this.$toast.open({
+                            message: err.response.data.messages,
+                            type: "error",
+                            duration: 20000,
+                            dismissible: true
+                        })
+                        this.isSubmitting = false;
+                    });
+                }
+            }
+        },
+    });
+    login_app.use(VueToast.ToastPlugin);
+    login_app.mount("#login_app")
+</script>

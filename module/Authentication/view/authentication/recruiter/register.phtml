@@ -1,0 +1,237 @@
+<?= $this->headtitle("Register"); ?>
+<?= $this->headMeta("Register to terces academy", "description"); ?>
+<section class="h-screen flex items-center justify-center relative overflow-hidden bg-[url('../../assets/images/hero/bg3.jpg')] bg-no-repeat bg-center bg-cover">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
+    <div class="container">
+        <div id="register" class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+            <div class="relative overflow-hidden bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
+                <div class="p-6">
+                    <a href="">
+                        <img src="assets/images/logo-dark.png" class="mx-auto h-[24px] block dark:hidden" alt="">
+                        <img src="assets/images/logo-light.png" class="mx-auto h-[24px] dark:block hidden" alt="">
+                    </a>
+                    <h5 class="my-6 text-xl font-semibold"> Recruiter Signup</h5>
+
+                    <div class="mb-4 ltr:text-left rtl:text-right">
+                        <label class="font-semibold" for="RegisterName">Company Name: <span style="font-size: x-small; color : red;">*</span></label>
+                        <input id="companyName" v-model="company_name" type="text" class="form-input mt-3 rounded-md" @blur="validateCompanyname()">
+                        <span class="floating-placeholder" style="font-size: x-small; color : red;" v-if="msg.company_name">{{msg.company_name}}</span>
+                    </div>
+                    <?= $this->partial("register_form_partial"); ?>
+
+
+                </div>
+
+                <div class="px-6 py-2 bg-slate-50 dark:bg-slate-800 text-center">
+                    <p class="mb-0 text-gray-400 font-medium"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!--end section -->
+
+<script>
+    const registerApp = Vue.createApp({
+        data() {
+            return {
+                company_name: "",
+                fullname: "",
+                email: "",
+                password: "",
+                confirm_password: "",
+                isTerms: false,
+                isValid: false,
+                msg: {
+                    company_name: "",
+                    isInvalidCompanyName: "",
+                    fullname: "",
+                    isInvalidFullname: true,
+                    email: "",
+                    isInvalidEmail: true,
+                    password: "",
+                    isInValidPassword: true,
+                    confirm_password: "",
+                    isInvalidConfirmPassword: true,
+                    isTerms: "",
+                    isInvalidTerms: true
+                },
+                isSubmitting: false,
+            }
+        },
+        mounted() {
+
+        },
+
+        methods: {
+            toggleTerms() {
+                this.isTerms = !this.isTerms;
+                this.validateTerms();
+            },
+            validateForm() {
+                if (!this.msg.isInvalidCompanyName && !this.msg.isInvalidEmail && !this.msg.isInValidPassword && !this.msg.isInvalidFullname && !this.msg.isInvalidConfirmPassword && !this.msg.isInvalidTerms) {
+                    this.isValid = true;
+                    // console.log("IsValid");
+                } else {
+                    this.isValid = false;
+
+                }
+            },
+
+            validateCompanyname() {
+                if (this.company_name == "") {
+                    this.msg.company_name = "Company Name cannot be empty"
+                    this.msg.isInvalidCompanyName = true;
+                } else if (this.company_name.length > 200) {
+                    this.msg.company_name = "Please use an appropriate name"
+                    this.msg.isInvalidCompanyName = true;
+                } else {
+                    this.msg.company_name = "",
+                        this.msg.isInvalidCompanyName = false;
+
+                }
+            },
+
+            validateFullname() {
+                if (this.fullname == "") {
+                    this.msg.fullname = "Fullname cannot be empty"
+                    this.msg.isInvalidFullname = true;
+                } else if (!(/^\w+(?:(?:,\s\w+)+|(?:\s\w+)+)$/.test(this.fullname))) {
+                    this.msg.fullname = "We expect more than one name"
+                    this.msg.isInvalidFullname = true;
+                } else if (this.fullname.length > 100) {
+                    this.msg.fullname = "Please use an appropriate name"
+                    this.msg.isInvalidFullname = true;
+                } else {
+                    this.msg.fullname = "",
+                        this.msg.isInvalidFullname = false;
+                    console.log("fullname")
+                }
+            },
+
+            validateEmail() {
+
+                // console.log(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email));
+                if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email))) {
+                    this.msg.email = 'Please enter a valid email address';
+                    this.msg.isInvalidEmail = true;
+
+                } else {
+                    this.msg.email = '';
+                    this.msg.isInvalidEmail = false;
+                    console.log("email")
+                }
+                this.validateForm()
+            },
+
+            validatePassword() {
+                var regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,100}$/;
+
+                if (this.password == "") {
+                    this.msg.password = 'Password cannot be empty';
+                    this.msg.isInValidPassword = true;
+
+                } else if (!regularExpression.test(this.password)) {
+                    this.msg.password = 'The passwod must contain a number, and a special character';
+                    this.msg.isInValidPassword = true;
+                }else if (this.password.length < 6) {
+                    this.msg.password = 'We expect your password should be more than 6 characters';
+                    this.msg.isInValidPassword = true;
+                } else {
+                    this.msg.password = '';
+                    this.msg.isInValidPassword = false;
+                }
+                this.validateForm();
+            },
+
+            validateConfirmPassword() {
+                if (this.confirm_password == "") {
+                    this.msg.confirm_password = 'Password cannot be empty';
+                    this.msg.isInvalidConfirmPassword = true;
+
+                } else if (this.confirm_password != this.password) {
+                    this.msg.confirm_password = 'This password does not match';
+                    this.msg.isInvalidConfirmPassword = true;
+                } else {
+                    this.msg.confirm_password = '';
+                    this.msg.isInvalidConfirmPassword = false;
+                }
+                this.validateForm();
+            },
+
+            validateTerms() {
+                if (this.isTerms == false) {
+                    this.msg.isTerms = "You must accept the terms and conditions";
+                    this.msg.isInvalidTerms = true;
+                } else {
+                    this.msg.isInvalidTerms = false;
+                    this.msg.isTerms = ""
+                }
+                this.validateForm();
+            },
+
+            register() {
+                // alert("HMMMMM");
+                this.isSubmitting = true;
+
+                if (!this.isValid) {
+                    this.$toast.open({
+                        message: "This form is not valid",
+                        type: "error",
+                        duration: 20000,
+                        dismissible: true
+                    })
+                    this.isSubmitting = false;
+                } else if (!this.isTerms) {
+                    this.$toast.open({
+                        message: "You must accept the terms and conditions",
+                        type: "error",
+                        duration: 20000,
+                        dismissible: true
+                    })
+                    this.isSubmitting = false;
+                } else {
+                    fetch('https://api.ipify.org?format=json')
+                        .then(x => x.json())
+                        .then(({
+                            ip
+                        }) => {
+
+                            let formData = new FormData();
+                            formData.append("company_name", this.company_name);
+                            formData.append("fullname", this.fullname);
+                            formData.append("email", this.email);
+                            formData.append("password", this.password);
+                            formData.append("confirm_password", this.confirm_password);
+                            formData.append("ip", ip)
+
+                            axios.post("/a/recruiter/register", formData).then((result) => {
+                                if (result.status == 201) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Registration Successfull',
+                                        text: `An email confirmation link has been sent to you email`,
+
+                                    }).then(state => {
+                                        window.location.href = "/login"
+                                    });
+                                    this.isSubmitting = false;
+                                }
+                            }).catch((err) => {
+                                this.isSubmitting = false;
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Error",
+                                    text: err.response.data.message
+                                });
+                            });
+                        });
+
+
+                }
+
+            }
+        },
+    });
+    registerApp.use(VueToast.ToastPlugin);
+    registerApp.mount("#register");
+</script>
