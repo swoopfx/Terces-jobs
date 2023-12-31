@@ -7,5 +7,11 @@ pipeline {
       }
     }
 
+    stage('checkout Repo') {
+      steps {
+        git(url: 'https://github.com/swoopfx/Terces-jobs', branch: 'dev')
+      }
+    }
+
   }
 }
