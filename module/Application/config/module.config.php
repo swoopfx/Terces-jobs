@@ -72,6 +72,9 @@ return [
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
 
+            //partials
+            'application/terces/academy' => __DIR__ . '/../view/partials/application_terces_academy_programs.phtml',
+
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ],

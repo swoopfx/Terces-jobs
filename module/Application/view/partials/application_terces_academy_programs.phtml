@@ -1,0 +1,62 @@
+<section id="academy" class="relative md:py-24 py-16">
+
+
+
+    <div class="container">
+        <div class="grid md:grid-cols-12 grid-cols-1 pb-8 items-end">
+            <div class="lg:col-span-8 md:col-span-6">
+                <h3 class="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">Terces Academy</h3>
+            </div>
+        </div><!--end grid-->
+
+        <div class="grid grid-cols-1 mt-7 relative">
+            <div class="tiny-five-item">
+                <div v-for="prg in programs" class="tiny-slide">
+                    <div class="group relative overflow-hidden rounded-md shadow dark:shadow-gray-700 transition duration-500 m-1">
+                        <img :src="img(prg.banner)" alt="">
+                        <div class="absolute inset-0 bg-slate-900/50"></div>
+
+                        <div class="absolute bottom-0 p-4">
+                            <a href="" class="text-lg font-semibold text-white hover:text-emerald-600 transition-all duration-500">{{prg.title}}</a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div><!--grid-->
+    </div><!--end container-->
+
+</section>
+
+<script>
+    const terceAcademyapp = Vue.createApp({
+        data() {
+            return {
+                programs: []
+            }
+        },
+        mounted() {
+            this.tercesAcademyProgram();
+        },
+        methods: {
+            tercesAcademyProgram() {
+                axios.get("https://academy.tercesjobs.com/app/get-programs-for-tirdparty").then((result) => {
+                    if (result.status == 200) {
+                        this.programs = result.data.data
+                    }
+
+                }).catch((err) => {
+
+                });
+            },
+
+            img(rr) {
+                return "https://academy.tercesjobs.com" + rr;
+            }
+        },
+    });
+    terceAcademyapp.mount("#academy")
+</script>

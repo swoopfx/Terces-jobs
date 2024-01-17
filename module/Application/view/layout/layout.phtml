@@ -33,6 +33,7 @@ use General\Service\GeneralService;
         ->prependStylesheet($this->basePath("assets/libs/tobii/css/tobii.min.css"))
 
     ?>
+    <link rel="stylesheet" href="/countryflag/country-flag.css">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
@@ -86,13 +87,15 @@ use General\Service\GeneralService;
 
             <!--Login button Start-->
             <ul class="buy-button list-none mb-0">
-                <li class="inline-block mb-0">
+                <li id="location" class="inline-block mb-0">
                     <div class="relative top-[3px]">
-                        <i class="uil uil-search text-lg absolute top-[3px] end-3"></i>
-                        <input type="text" class="form-input h-9 pe-10 rounded-3xl sm:w-44 w-36 border-gray-100 dark:border-slate-800 bg-white dark:bg-slate-900" name="s" id="searchItem" placeholder="Search...">
+
+                        <img :src="location">
                     </div>
                 </li>
+                <li class="inline-block mb-0">
 
+                </li>
                 <li class="dropdown inline-block relative ps-1">
                     <?php if ($this->identity()) : ?>
                         <button data-dropdown-toggle="dropdown" class="dropdown-toggle items-center" type="button">
@@ -145,7 +148,9 @@ use General\Service\GeneralService;
             <div id="navigation">
                 <!-- Navigation Menu-->
                 <ul class="navigation-menu justify-end">
-                    <li class="has-submenu parent-menu-item">
+                    <li><a href="<?= $this->url("home") ?>" class="sub-menu-item">Home</a></li>
+                    <li><a href="<?= $this->url("app", ["controller" => "application", "action" => "about"]) ?>" class="sub-menu-item">About Us</a></li>
+                    <!--  <li class="has-submenu parent-menu-item">
                         <a href="javascript:void(0)">Home</a><span class="menu-arrow"></span>
                         <ul class="submenu">
                             <li><a href="index.html" class="sub-menu-item">Hero One</a></li>
@@ -157,14 +162,14 @@ use General\Service\GeneralService;
                             <li><a href="index-seven.html" class="sub-menu-item">Hero Seven </a></li>
                             <li><a href="index-eight.html" class="sub-menu-item">Hero Eight <span class="bg-yellow-500 inline-block text-white text-[10px] font-bold px-2.5 py-0.5 rounded h-5 ms-1">New</span></a></li>
                         </ul>
-                    </li>
+                    </li> -->
 
                     <li class="has-submenu parent-parent-menu-item"><a href="javascript:void(0)"> Services </a><span class="menu-arrow"></span>
                         <ul class="submenu">
                             <li><a href="<?= $this->url("app", ["controller" => "application", "action" => "lazy-applicant"]) ?>" class="sub-menu-item">Lazy Applicant</a></li>
-                            <li><a href="<?= $this->url("app", ["controller" => "application", "action" => "career-service"]) ?>" class="sub-menu-item">Lazy Applicant</a></li>
+                            <li><a href="<?= $this->url("app", ["controller" => "application", "action" => "career-service"]) ?>" class="sub-menu-item">Career Service</a></li>
 
-                            <li class="has-submenu parent-menu-item">
+                            <!-- <li class="has-submenu parent-menu-item">
                                 <a href="javascript:void(0)"> Job Grids </a><span class="submenu-arrow"></span>
                                 <ul class="submenu">
                                     <li><a href="job-grid-one.html" class="sub-menu-item">Job Grid One</a></li>
@@ -199,11 +204,11 @@ use General\Service\GeneralService;
 
                             <li><a href="job-post.html" class="sub-menu-item">Job Post </a></li>
 
-                            <li><a href="career.html" class="sub-menu-item">Career </a></li>
+                            <li><a href="career.html" class="sub-menu-item">Career </a></li> -->
                         </ul>
                     </li>
 
-                    <li class="has-submenu parent-parent-menu-item"><a href="javascript:void(0)"> Jobs </a><span class="menu-arrow"></span>
+                    <!-- <li class="has-submenu parent-parent-menu-item"><a href="javascript:void(0)"> Jobs </a><span class="menu-arrow"></span>
                         <ul class="submenu">
                             <li><a href="job-categories.html" class="sub-menu-item">Job Categories</a></li>
 
@@ -244,9 +249,9 @@ use General\Service\GeneralService;
 
                             <li><a href="career.html" class="sub-menu-item">Career </a></li>
                         </ul>
-                    </li>
+                    </li> -->
 
-                    <li class="has-submenu parent-parent-menu-item">
+                    <!-- <li class="has-submenu parent-parent-menu-item">
                         <a href="javascript:void(0)">Pages</a><span class="menu-arrow"></span>
                         <ul class="submenu">
                             <li><a href="aboutus.html" class="sub-menu-item">About Us</a></li>
@@ -312,7 +317,7 @@ use General\Service\GeneralService;
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
 
                     <li><a href="contact.html" class="sub-menu-item">Contact</a></li>
                 </ul><!--end navigation menu-->
@@ -346,73 +351,7 @@ use General\Service\GeneralService;
 
 
     <?= $this->content ?>
-    <section class="relative md:py-24 py-16">
-        <div class="container">
-            <div class="grid md:grid-cols-12 grid-cols-1 pb-8 items-end">
-                <div class="lg:col-span-8 md:col-span-6">
-                    <h3 class="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">Terces Academy</h3>
-                </div>
-            </div><!--end grid-->
-
-            <div class="grid grid-cols-1 mt-7 relative">
-                <div class="tiny-five-item">
-                    <div class="tiny-slide">
-                        <div class="group relative overflow-hidden rounded-md shadow dark:shadow-gray-700 transition duration-500 m-1">
-                            <img src="/assets/images/work/01.jpg" alt="">
-                            <div class="absolute inset-0 bg-slate-900/50"></div>
-
-                            <div class="absolute bottom-0 p-4">
-                                <a href="" class="text-lg font-semibold text-white hover:text-emerald-600 transition-all duration-500">Product & Branding Design</a>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="tiny-slide">
-                        <div class="group relative overflow-hidden rounded-md shadow dark:shadow-gray-700 transition duration-500 m-1">
-                            <img src="/assets/images/work/06.jpg" alt="">
-                            <div class="absolute inset-0 bg-slate-900/50"></div>
-
-                            <div class="absolute bottom-0 p-4">
-                                <a href="" class="text-lg font-semibold text-white hover:text-emerald-600 transition-all duration-500">Digital Marketing</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!--grid-->
-        </div><!--end container-->
-        <div class="container-fluid md:mt-24 mt-16">
-            <div class="container">
-                <div class="grid grid-cols-1">
-                    <div class="relative overflow-hidden lg:px-8 px-6 py-10 rounded-xl shadow-lg dark:shadow-gray-700">
-                        <div class="grid md:grid-cols-12 grid-cols-1 items-center gap-[30px]">
-                            <div class="lg:col-span-8 md:col-span-7">
-                                <div class="ltr:md:text-left rtl:md:text-right text-center relative z-1">
-                                    <h3 class="text-2xl font-semibold text-black dark:text-white mb-4">Explore a job now!</h3>
-                                    <p class="text-slate-400 max-w-xl">Search all the open positions on the web. Get your own personalized salary estimate. Read reviews on over 30000+ companies worldwide.</p>
-                                </div>
-                            </div><!--end col-->
-
-                            <div class="lg:col-span-4 md:col-span-5">
-                                <div class="ltr:text-right rtl:text-left relative z-1">
-                                    <a href="employer-detail.html" class="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 dark:border-emerald-600 text-white rounded-md">Apply Now</a>
-                                    <a href="aboutus.html" class="btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-md ms-2">Learn More</a>
-                                </div>
-                            </div><!--end col-->
-                        </div><!--end grid-->
-
-                        <div class="absolute -top-5 -start-5">
-                            <div class="uil uil-envelope lg:text-[150px] text-7xl text-black/5 dark:text-white/5 ltr:-rotate-45 rtl:rotate-45"></div>
-                        </div>
-
-                        <div class="absolute -bottom-5 -end-5">
-                            <div class="uil uil-pen lg:text-[150px] text-7xl text-black/5 dark:text-white/5 rtl:-rotate-90"></div>
-                        </div>
-                    </div>
-                </div><!--end grid-->
-            </div><!--end container-->
-    </section>
+    <?= $this->partial("application/terces/academy"); ?>
 
 
     <footer class="relative bg-slate-900 dark:bg-slate-800">
@@ -461,7 +400,8 @@ use General\Service\GeneralService;
 
                                     <?php else : ?>
                                         <li class=""><a href="<?= $this->url("login") ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Login</a></li>
-                                        <li class=" mt-[10px] md:mt-0"><a href="<?= $this->url("register") ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Register</a></li>
+                                        <li class=" mt-[10px] md:mt-0"><a href="<?= $this->url("register") ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Job Seeker Register</a></li>
+                                        <li class=" mt-[10px] md:mt-0"><a href="<?= $this->url("authentication", ["controller" => "recruiter", "action" => "register"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Recruiter Register</a></li>
                                     <?php endif; ?>
                                     <li class=""><a href="<?= $this->url("app", ["controller" => "application", "action" => "recruiters-blog"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Upload CV</a></li>
                                     <li class=""><a href="<?= $this->url("app", ["controller" => "application", "action" => "recruiters-blog"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">CV Builder</a></li>
@@ -503,6 +443,35 @@ use General\Service\GeneralService;
         <a href="<?= $this->url("app", ["controller" => "application", "action" => "helpdesk"]) ?>" target="_blank" class="py-1 px-3 relative inline-block rounded-t-md -rotate-90 bg-white dark:bg-slate-900 shadow-md dark:shadow dark:shadow-gray-800 font-semibold"><i class="mdi mdi-help me-1"></i> Help Desk</a>
     </div>
 
+    <script>
+        const zoneApp = Vue.createApp({
+            data() {
+                return {
+                    location: ""
+                }
+            },
+            mounted() {
+                this.getCustomerLocation();
+            },
+            methods: {
+                getCustomerLocation() {
+
+                    axios.get("https://api.ipdata.co?api-key=639fe10fc4e7a411e874c00ad8b59be1fa07f4a08e29e1f89e0c36f6").then((result) => {
+                        console.log(result.data.country_code);
+                        this.location = result.data.flag;
+                        const parentElement = document.getElementById("flag");
+                        let flag = new CountryFlag(parentElement);
+                        flag.selectByAlpha2(result.data.country_code);
+                    }).catch((err) => {
+
+                    });
+
+                }
+            },
+        });
+        zoneApp.mount("#location");
+    </script>
+
     <!-- JAVASCRIPTS -->
 
     <script src="/assets/libs/tobii/js/tobii.min.js"></script>
@@ -510,6 +479,7 @@ use General\Service\GeneralService;
     <script src="/assets/libs/tiny-slider/min/tiny-slider.js"></script>
     <script src="/assets/libs/feather-icons/feather.min.js"></script>
     <script src="/assets/js/plugins.init.js"></script>
+    <script src="/countryflag/country-flag.js"></script>
     <script src="/assets/js/app.js"></script>
     <!-- JAVASCRIPTS -->
 </body>
