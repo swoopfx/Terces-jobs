@@ -33,5 +33,6 @@ return [
     'Application',
     'General',
     "Authentication",
-    "Admin"
+    "Admin",
+    "Recruiter"
 ];

@@ -351,7 +351,7 @@ use General\Service\GeneralService;
 
 
     <?= $this->content ?>
-    <?= $this->partial("application/terces/academy"); ?>
+
 
 
     <footer class="relative bg-slate-900 dark:bg-slate-800">
@@ -405,7 +405,7 @@ use General\Service\GeneralService;
                                     <?php endif; ?>
                                     <li class=""><a href="<?= $this->url("app", ["controller" => "application", "action" => "recruiters-blog"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Upload CV</a></li>
                                     <li class=""><a href="<?= $this->url("app", ["controller" => "application", "action" => "recruiters-blog"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">CV Builder</a></li>
-                                    <li class=""><a href="<?= $this->url("app", ["controller" => "application", "action" => "advertise-job"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Advertise a job</a></li>
+                                    <li class=""><a href="<?= $this->url("recruiter", ["interface" => "web", "controller" => "recruiter", "action" => "post-job"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Advertise a job</a></li>
                                     <li class=""><a href="<?= $this->url("app", ["controller" => "application", "action" => "recruiters-blog"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Recruiters blog</a></li>
 
                                 </ul><!--end icon-->
@@ -476,7 +476,21 @@ use General\Service\GeneralService;
 
     <script src="/assets/libs/tobii/js/tobii.min.js"></script>
     <script src="/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
-    <script src="/assets/libs/tiny-slider/min/tiny-slider.js"></script>
+    <script>
+        setTimeout(load_js, 1000); // Delay 4 seconds in loading function
+        function load_js() {
+            // Get the head tag
+            var head_ID = document.getElementsByTagName("head")[0];
+            // Create script element       
+            var script_element = document.createElement('script');
+            // Set the script type to JavaScript
+            script_element.type = 'text/javascript';
+            // External JS file
+            script_element.src = '/assets/libs/tiny-slider/min/tiny-slider.js';
+            head_ID.appendChild(script_element);
+        }
+    </script>
+
     <script src="/assets/libs/feather-icons/feather.min.js"></script>
     <script src="/assets/js/plugins.init.js"></script>
     <script src="/countryflag/country-flag.js"></script>
