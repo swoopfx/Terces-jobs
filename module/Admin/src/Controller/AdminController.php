@@ -8,8 +8,21 @@ use Laminas\View\Model\ViewModel;
 class AdminController extends AbstractActionController
 {
 
-    public function indexAction(){
+    public function indexAction()
+    {
         $viewModel = new ViewModel();
-        return $viewModel
+        return $viewModel;
+    }
+
+    public function dashboardAction()
+    {
+        $viewModel = new ViewModel();
+        return $viewModel;
+    }
+
+    public function newsletterAction()
+    {
+        $viewModel = new ViewModel();
+        return $viewModel;
     }
 }

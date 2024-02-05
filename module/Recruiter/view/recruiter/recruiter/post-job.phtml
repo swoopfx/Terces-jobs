@@ -34,15 +34,31 @@
             <div class="lg:w-2/3">
                 <div class="p-6 bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
                     <form id="postjob" class="text-left">
-                        <div class="grid grid-cols-1">
+                        <div class="grid grid-cols-2">
                             <h5 class="text-lg font-semibold">Job Details:</h5>
                         </div>
 
                         <div class="grid grid-cols-12 gap-4 mt-4">
                             <div class="col-span-12 ltr:text-left rtl:text-right">
                                 <label class="font-semibold" for="RegisterName">Job Title:</label>
-                                <input id="RegisterName" type="text" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="Web Developer">
+                                <i data-feather="dollar-sign" class="w-4 h-4 absolute top-3 start-3"></i>
+                                <input v-model="jobTitle" id="RegisterName" type="text" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="Web Developer">
                             </div>
+
+                            <div class="col-span-9 md:col-span-9 ltr:text-left rtl:text-right">
+                                <label class="font-semibold" for="RegisterName">Job Tit:</label>
+                                <input v-model="jobTitle" id="RegisterName" type="text" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="Web Developer">
+                               
+                            </div>
+
+                            <div class="col-span-3 md:col-span-3 ltr:text-left rtl:text-right">
+                                <label class="font-semibold" for="RegisterName">Job Tit:</label>
+                                <input v-model="jobTitle" id="RegisterName" type="text" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="Web Developer">
+                               
+                            </div>
+                            
+
+
 
                             <div class="col-span-12 ltr:text-left rtl:text-right">
                                 <label for="comments" class="font-semibold">Job Description:</label>
@@ -168,6 +184,9 @@
                             </div>
                         </div>
                     </form><!--end form-->
+
+
+
                 </div>
             </div>
         </div><!--end flex-->
@@ -175,22 +194,65 @@
 </section><!--end section-->
 <!-- End -->
 
+
+
+<div class="container m-auto grid grid-cols-2">
+    <div class="tile bg-teal-500">
+        <h1 class="tile-marker">ONE</h1>
+    </div>
+    <div class="tile bg-amber-500">
+        <h1 class="tile-marker">TWO</h1>
+    </div>
+    <div class="tile bg-yellow-500">
+        <h1 class="tile-marker">THREE</h1>
+    </div>
+    <div class="tile bg-lime-600">
+        <h1 class="tile-marker">FOUR</h1>
+    </div>
+    <div class="tile bg-green-600">
+        <h1 class="tile-marker">FIVE</h1>
+    </div>
+    <div class="tile bg-emerald-500">
+        <h1 class="tile-marker">SIX</h1>
+    </div>
+    <div class="tile bg-teal-500">
+        <h1 class="tile-marker">SEVEN</h1>
+    </div>
+    <div class="tile bg-purple-500">
+        <h1 class="tile-marker">EIGHT</h1>
+    </div>
+    <div class="tile bg-pink-500">
+        <h1 class="tile-marker">NINE</h1>
+    </div>
+</div>
+
 <script>
     const postJobApp = Vue.createApp({
         data() {
             return {
                 postjobs: [],
-
+                jobTitle: "",
+                jobDescrpption: "",
+                jobType: "",
+                jobWorkplaceType: "",
+                jobLocation: "",
+                skills: [],
+                qualifications: [],
             }
         },
 
-        mounted () {
+        mounted() {
             this.getWorkType();
         },
 
         methods: {
+
+            validateJobTitle() {
+
+            },
+
             getWorkType() {
-                
+
             }
         },
     });

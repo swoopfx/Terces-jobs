@@ -26,7 +26,7 @@ class PostjobType {
     private $id;
 
     /**
-     * @ORM\Column(nume="post_job_type")
+     * @ORM\Column(name="post_job_type")
      *
      * @var string
      */

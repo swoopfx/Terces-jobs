@@ -102,4 +102,9 @@ class ApplicationController extends AbstractActionController
         $viewModel = new ViewModel();
         return $viewModel;
     }
+
+    public function newsletterAction(){
+        $viewModel = new ViewModel();
+        return $viewModel;
+    }
 }

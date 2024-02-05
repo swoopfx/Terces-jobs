@@ -24,7 +24,7 @@ use General\Service\GeneralService;
         'href' => $this->basePath() . '/img/favicon.ico'
     ])
 
-
+        ->prependStylesheet("https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css")
         ->prependStylesheet($this->basePath("assets/css/tailwind.css"))
         ->prependStylesheet($this->basePath("assets/libs/tiny-slider/tiny-slider.css"))
         ->prependStylesheet($this->basePath("assets/libs/@mdi/font/css/materialdesignicons.min.css"))
@@ -49,7 +49,9 @@ use General\Service\GeneralService;
 
     <script src="https://cdn.jsdelivr.net/npm/vue-toast-notification@3"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 
+    <script src="https://kit.fontawesome.com/4734a25d16.js" crossorigin="anonymous"></script>
     <!-- Scripts -->
 
 </head>
@@ -376,6 +378,7 @@ use General\Service\GeneralService;
                                     <li class="mb-1  mt-[10px] md:mt-0"><a href="<?= $this->url("app", ["controller" => "application", "action" => "browsejobs"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Browse Jobs</a></li>
                                     <li class=" mt-[10px] md:mt-0"><a href="<?= $this->url("app", ["controller" => "application", "action" => "terms"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Terms & Conditions</a></li>
                                     <li class=" mt-[10px] md:mt-0"><a href="<?= $this->url("app", ["controller" => "application", "action" => "privacy"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Privacy</a></li>
+                                    <li class=" mt-[10px] md:mt-0"><a href="<?= $this->url("app", ["controller" => "application", "action" => "newsletter"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">newsletters</a></li>
                                 </ul><!--end icon-->
                             </div><!--end col-->
 

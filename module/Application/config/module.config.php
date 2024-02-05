@@ -6,11 +6,23 @@ namespace Application;
 
 use Application\Controller\ApplicationController;
 use Application\Controller\Factory\ApplicationControllerFactory;
+use Application\Controller\Factory\NewsControllerFactory;
+use Application\Controller\IndexController;
+use Application\Controller\NewsController;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
+    "controllers" => [
+        "factories" => [
+            NewsController::class => NewsControllerFactory::class
+        ],
+        "aliases" => [
+            "news" => NewsController::class
+        ]
+    ],
     'router' => [
         'routes' => [
             'home' => [
@@ -23,13 +35,22 @@ return [
                     ],
                 ],
             ],
-            'application' => [
+            'apps' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/application[/:action]',
+                    'route'    => '/apps[/:controller[/:interface[/:action[/:id]]]]',
+                    'constraints' => [
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'interface' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[a-zA-Z0-9]*'
+                    ],
+
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
+                        'controller' => IndexController::class,
+                        "interface" => "web",
                         'action'     => 'index',
+                        'id' => '[a-zA-Z0-9]*'
                     ],
                 ],
             ],
@@ -85,4 +106,20 @@ return [
             'ViewJsonStrategy'
         )
     ],
+    "doctrine" => [
+        'driver' => [
+            __NAMESPACE__ . '_driver' => [
+                'class' => AnnotationDriver::class,
+                'cache' => 'array',
+                'paths' => [
+                    __DIR__ . '/../src/Entity'
+                ]
+            ],
+            'orm_default' => [
+                'drivers' => [
+                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
+                ]
+            ]
+        ]
+    ]
 ];

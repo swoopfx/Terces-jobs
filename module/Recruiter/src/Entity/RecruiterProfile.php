@@ -2,7 +2,9 @@
 
 namespace Recruiter\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 
 
 /**
@@ -20,4 +22,23 @@ class RecruiterProfile
      *      @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * Undocumented variable
+     *
+     * @ORM\OneToMany(targetEntity="RecruiterCompany", mappedBy="recruiterProfile")
+     * @var Collection<int, RecruiterCompany>
+     */
+    private $recruiterCompany;
+
+    private $createdOn;
+
+    private $updatedOn;
+
+
+
+    public function __construct()
+    {
+        $this->recruiterCompany = new ArrayCollection();
+    }
 }
