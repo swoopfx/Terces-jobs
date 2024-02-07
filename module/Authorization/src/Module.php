@@ -54,9 +54,9 @@ class Module
         $interface = $routeMatch->getParam("interface");
 
        
-        if (!$acl->hasResource($controller)) {
-            throw new \Exception("Resource {$controller} not found");
-        }
+        // if (!$acl->hasResource($controller)) {
+        //     throw new \Exception("Resource {$controller} not found");
+        // }
 
         // var_dump($acl->isAllowed($role, $controller, $action));
         // exit;
@@ -65,42 +65,42 @@ class Module
         //     exit;
         // }
 
-        if (!$acl->isAllowed($role, $controller, $action)) {
-            // var_dump($role);
-            // var_dump($controller);
-            // var_dump($action);
-            // exit;
+        // if (!$acl->isAllowed($role, $controller, $action)) {
+        //     // var_dump($role);
+        //     // var_dump($controller);
+        //     // var_dump($action);
+        //     // exit;
 
-            $config = $sm->get("config");
+        //     $config = $sm->get("config");
 
-            $redirect_route = $config["acl"]["redirect_route"];
+        //     $redirect_route = $config["acl"]["redirect_route"];
 
-            if ($interface != "web") {
-                $response->setStatusCode(401);
-                $response->getHeaders()->addHeaderLine('Content-Type', 'application/json');
-                $response->setContent(json_encode([
-                    "error" => "Unauthorized"
-                ]));
-                return $response;
-            }else if (!empty($redirect_route)) {
-                // var_dump($role);
-                $url = $e->getRouter()->assemble($redirect_route["params"], $redirect_route["options"]);
-                $response->getHeaders()->addHeaderLine("Location", $url);
+        //     if ($interface != "web") {
+        //         $response->setStatusCode(401);
+        //         $response->getHeaders()->addHeaderLine('Content-Type', 'application/json');
+        //         $response->setContent(json_encode([
+        //             "error" => "Unauthorized"
+        //         ]));
+        //         return $response;
+        //     }else if (!empty($redirect_route)) {
+        //         // var_dump($role);
+        //         $url = $e->getRouter()->assemble($redirect_route["params"], $redirect_route["options"]);
+        //         $response->getHeaders()->addHeaderLine("Location", $url);
 
 
-                $response->setStatusCode(302);
-                $response->sendHeaders();
+        //         $response->setStatusCode(302);
+        //         $response->sendHeaders();
 
-                exit;
-            } else {
+        //         exit;
+        //     } else {
 
-                $response->setStatusCode(401);
-                $response->getHeaders()->addHeaderLine('Content-Type', 'application/json');
-                $response->setContent(json_encode([
-                    "error" => "Unauthorized"
-                ]));
-                return $response;
-            }
-        }
+        //         $response->setStatusCode(401);
+        //         $response->getHeaders()->addHeaderLine('Content-Type', 'application/json');
+        //         $response->setContent(json_encode([
+        //             "error" => "Unauthorized"
+        //         ]));
+        //         return $response;
+        //     }
+        // }
     }
 }

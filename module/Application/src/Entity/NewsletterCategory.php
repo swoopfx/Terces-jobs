@@ -29,7 +29,7 @@ class NewsletterCategory
 
     /**
      * Undocumented variable
-     * @ORM\Column(type="boolean", name="uuid", nullable=false)
+     * @ORM\Column(name="uuid", nullable=false)
      * @var string
      */
     private $uuid;

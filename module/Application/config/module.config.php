@@ -15,14 +15,7 @@ use Laminas\Router\Http\Segment;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
-    "controllers" => [
-        "factories" => [
-            NewsController::class => NewsControllerFactory::class
-        ],
-        "aliases" => [
-            "news" => NewsController::class
-        ]
-    ],
+    
     'router' => [
         'routes' => [
             'home' => [
@@ -78,9 +71,11 @@ return [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
             ApplicationController::class => ApplicationControllerFactory::class,
+            NewsController::class => NewsControllerFactory::class
         ],
         "aliases" => [
-            "application" => ApplicationController::class
+            "application" => ApplicationController::class,
+            "news" => NewsController::class
         ]
     ],
     'view_manager' => [
