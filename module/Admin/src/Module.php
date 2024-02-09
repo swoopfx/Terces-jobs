@@ -18,11 +18,11 @@ class Module
 
     public function init(ModuleManager $moduleManager)
     {
-        $sharedEvent = $moduleManager->getEventManager()->getSharedManager();
-        $sharedEvent->attach(__NAMESPACE__, 'dispatch', function ($e) {
-            $controller = $e->getTarget();
-            $controller->layout('admin-layout');
-        });
+        // $sharedEvent = $moduleManager->getEventManager()->getSharedManager();
+        // $sharedEvent->attach(__NAMESPACE__, 'dispatch', function ($e) {
+        //     $controller = $e->getTarget();
+        //     $controller->layout('admin-layout');
+        // });
     }
 
     public function onBootstrap(MvcEvent $e)

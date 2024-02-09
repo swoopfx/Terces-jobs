@@ -43,10 +43,10 @@ class Module
         $role = Acl::DEFAULT_ROLE;
         $response = $e->getResponse();
         // var_dump($auth->hasIdentity());
-        if ($auth->hasIdentity()) {
-            $user = $auth->getIdentity();
-            $role = $user->getRole()->getName();
-        }
+        // if ($auth->hasIdentity()) {
+        //     $user = $auth->getIdentity();
+        //     $role = $user->getRole()->getName();
+        // }
 
 
         $controller = $routeMatch->getParam("controller");

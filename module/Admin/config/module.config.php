@@ -3,7 +3,9 @@
 namespace Admin;
 
 use Admin\Controller\AdminController;
+use Admin\Controller\AppController;
 use Admin\Controller\Factory\AdminControllerFactory;
+use Admin\Controller\Factory\AppControllerFactory;
 use Laminas\Router\Http\Segment;
 
 return [
@@ -37,19 +39,23 @@ return [
                     'defaults' => [
                         'controller' => AdminController::class,
                         "interface" => "web",
-                        'action'     => 'index',
+                        'action'     => 'login',
                         'id' => '[a-zA-Z0-9]*'
                     ],
                 ],
             ],
+
+        
         ]
     ],
     "controllers" => [
         "factories" => [
-            AdminController::class => AdminControllerFactory::class
+            AdminController::class => AdminControllerFactory::class,
+            AppController::class => AppControllerFactory::class
         ],
         "aliases" => [
-            "admin" => AdminController::class
+            "admin" => AdminController::class,
+            "app"=>AppController::class,
         ]
     ]
 ];

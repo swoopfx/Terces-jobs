@@ -33,7 +33,7 @@ class NewsController extends AbstractActionController
         $jsonModel = new JsonModel();
         $em = $this->entityManager;
         $data = $em->getRepository(NewsletterCategory::class)->createQueryBuilder("n")
-            ->select("n")
+            ->select(["n.id", "n.category"])
             ->getQuery()
             ->getArrayResult();
         $jsonModel->setVariable("data", $data);
