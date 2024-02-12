@@ -132,9 +132,9 @@ class ApplicationController extends AbstractActionController
             $pageCount = ($this->params()->fromQuery("page_count", GeneralService::MAX_PAGE_COUNT) > 100 ? 100 : $this->params()->fromQuery("page_count", GeneralService::MAX_PAGE_COUNT));
             $orderBy = $this->params()->fromQuery("order_by", "id");
             $query = $this->entityManager->createQueryBuilder()->select([
-                "n", "u",  "c"
+                "n","i", "u",  "c"
             ])->from(Newsletter::class, "n")
-                ->leftJoin("n.referenceImageuser", "i")
+                ->leftJoin("n.referenceImage", "i")
                 ->leftJoin("n.uploader", "u")
                 ->leftJoin("n.category", "c")
                 // ->leftJoin("w.wasteType", "wt")
@@ -169,12 +169,13 @@ class ApplicationController extends AbstractActionController
                 "total_page" => $totalPageCount,
                 "data" => $records
             ]);
+            
         } catch (\Throwable $th) {
 
             // var_dump($th->getTrace());
-            $this->flashMessenger()->addErrorMessage($th->getMessage());
+            $this->flashMessenger()->addErrorMessage("Something went wrong");
             $url = $this->getRequest()->getHeader('Referer')->getUri();
-            // return $this->redirect()->toUrl($url);
+            return $this->redirect()->toUrl($url);
         }
         return $viewModel;
     }

@@ -44,6 +44,8 @@ class Module
         $authService = $generalService->getAuth();
         $cont = new Container("refer");
 
+        
+
         // var_dump( $routeMatch->getMatchedRouteName());
         // if ($routeMatch->getMatchedRouteName() == "admin") {
         //     if (!$authService->hasIdentity()) {

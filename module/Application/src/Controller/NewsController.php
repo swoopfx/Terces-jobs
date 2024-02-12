@@ -25,6 +25,17 @@ class NewsController extends AbstractActionController
     public function detailsAction()
     {
         $viewModel = new ViewModel();
+        $uuid = $this->params()->fromRoute("id", NULL);
+        if ($uuid == NULL) {
+            $this->flashMessenger()->addErrorMessage("Absent identifier");
+            $url = $this->getRequest()->getHeader('Referer')->getUri();
+            return $this->redirect()->toUrl($url);
+        }
+        $em = $this->entityManager;
+        $data = $em->getRepository(Newsletter::class)->findOneBy([
+            "uuid" => $uuid
+        ]);
+        $viewModel->setVariable("data", $data);
         return $viewModel;
     }
 

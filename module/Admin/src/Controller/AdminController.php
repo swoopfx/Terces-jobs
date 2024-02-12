@@ -4,8 +4,10 @@ namespace Admin\Controller;
 
 use Doctrine\ORM\EntityManager;
 use General\Service\PostMarkService;
+use Laminas\Http\Response;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\MvcEvent;
 use Laminas\Session\Container;
 use Laminas\View\Model\JsonModel;
 use Laminas\View\Model\ViewModel;
@@ -21,8 +23,18 @@ class AdminController extends AbstractActionController
 
     private $authService;
 
+    // public function onDispatch(MvcEvent $e)
+    // {
+    //     $response = parent::onDispatch($e);
+    //     $this->layout()->setTemplate("admin-layout");
+    //     return $response;
+    // }
+
+    // public function onR
+
     public function indexAction()
     {
+        $this->layout()->setTemplate("admin-layout");
         $viewModel = new ViewModel();
         return $viewModel;
     }
@@ -195,6 +207,8 @@ class AdminController extends AbstractActionController
                             'force_canonical' => true
                         ));
 
+                        $redirect = "/admin/admin/web/dashboard";
+
                         $cont = new Container("refer");
                         $referal = $cont->refer;
                         if ($referal != "") {
@@ -243,12 +257,14 @@ class AdminController extends AbstractActionController
 
     public function dashboardAction()
     {
+        $this->layout()->setTemplate("admin-layout");
         $viewModel = new ViewModel();
         return $viewModel;
     }
 
     public function newsletterAction()
     {
+        $this->layout()->setTemplate("admin-layout");
         $viewModel = new ViewModel();
         return $viewModel;
     }

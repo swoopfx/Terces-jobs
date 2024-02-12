@@ -31,9 +31,9 @@ class Newsletter
     /**
      * Undocumented variable
      * @ORM\ManyToOne(targetEntity="General\Entity\Image")
-     * @var integer
+     * @var Image
      */
-    private int $referenceImage;
+    private Image $referenceImage;
 
     /**
      * Undocumented variable
@@ -54,7 +54,7 @@ class Newsletter
      * @ORM\ManyToOne(targetEntity="NewsletterCategory")
      * @var NewsletterCategory
      */
-    private int $category;
+    private NewsletterCategory $category;
 
     /**
      * Undocumented variable
@@ -313,7 +313,7 @@ class Newsletter
     /**
      * Set undocumented variable
      *
-     * @param  integer  $referenceImage  Undocumented variable
+     * @param  Image  $referenceImage  Undocumented variable
      *
      * @return  self
      */ 

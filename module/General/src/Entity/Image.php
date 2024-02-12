@@ -315,10 +315,10 @@ class Image
      *
      * @return  Assignments
      */
-    public function getAssigmentResos()
-    {
-        return $this->assigmentResos;
-    }
+    // public function getAssigmentResos()
+    // {
+    //     return $this->assigmentResos;
+    // }
 
     /**
      * Set the value of assigmentResos
@@ -327,10 +327,10 @@ class Image
      *
      * @return  self
      */
-    public function setAssigmentResos(Assignments $assigmentResos)
-    {
-        $this->assigmentResos = $assigmentResos;
+    // public function setAssigmentResos(Assignments $assigmentResos)
+    // {
+    //     $this->assigmentResos = $assigmentResos;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 }

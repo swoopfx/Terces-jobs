@@ -5,6 +5,9 @@ namespace Admin\Controller;
 use Application\Entity\Newsletter;
 use Application\Entity\NewsletterCategory;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use General\Service\GeneralService;
 use General\Service\UploadService;
 use Laminas\Filter\StringTrim;
 use Laminas\Filter\StripTags;
@@ -233,7 +236,80 @@ class AppController extends AbstractActionController
     public function newslistAction()
     {
         $viewModel = new ViewModel();
+        $em = $this->entityManager;
+        $order = ($this->params()->fromQuery("order", NULL) == null ? "DESC" : "ASC");
+        $pageCount = ($this->params()->fromQuery("page_count", GeneralService::MAX_PAGE_COUNT) > 100 ? 100 : $this->params()->fromQuery("page_count", GeneralService::MAX_PAGE_COUNT));
+        $orderBy = $this->params()->fromQuery("order_by", "id");
+        $query = $em->getRepository(Newsletter::class)
+            ->createQueryBuilder("t")
+            ->select(["t", "r", "u", "c"])
+            ->leftJoin("t.referenceImage", "r")
+            ->leftJoin("t.uploader", "u")
+            ->leftJoin("t.category", "c")
+
+            ->orderBy("t.{$orderBy}", $order)
+            ->getQuery()
+            ->setHydrationMode(Query::HYDRATE_ARRAY);
+
+        $paginator = new Paginator($query);
+        $totalItems = count($paginator);
+
+        $currentPage = ($this->params()->fromQuery("page")) ?: 1;
+        $totalPageCount = ceil($totalItems / $pageCount);
+        $nextPage = (($currentPage < $totalPageCount) ? $currentPage + 1 : $totalPageCount);
+        $previousPage = (($currentPage > 1) ? $currentPage - 1 : 1);
+
+        $records = $paginator->getQuery()->setFirstResult($pageCount * ($currentPage - 1))
+            ->setMaxResults($pageCount)
+            ->getResult(Query::HYDRATE_ARRAY);
+
+        $viewModel->setVariables([
+            "previous_page" => $previousPage,
+            "next_page" => $nextPage,
+            "total_page" => $totalPageCount,
+            "data" => $records
+        ]);
         return $viewModel;
+    }
+
+    public function editnewsAction()
+    {
+        $viewmodel  = new ViewModel();
+        $uuid = $this->params()->fromRoute("id", NULL);
+        $em = $this->entityManager;
+        $data = $em->getRepository(Newsletter::class)->createQueryBuilder("t")
+            ->select(["t", "r", "u", "c"])
+            ->leftJoin("t.referenceImage", "r")
+            ->leftJoin("t.uploader", "u")
+            ->leftJoin("t.category", "c")->where("t.uuid = :uuid")
+            ->setParameters([
+                "uuid" => $uuid
+            ])
+            ->getQuery()
+            ->getArrayResult();
+
+        $viewmodel->setVariable("data", $data[0]);
+        return $viewmodel;
+    }
+
+    public function newsdetailsAction()
+    {
+        $viewmodel  = new ViewModel();
+        $uuid = $this->params()->fromRoute("id", NULL);
+        $em = $this->entityManager;
+        $data = $em->getRepository(Newsletter::class)->createQueryBuilder("t")
+            ->select(["t", "r", "u", "c"])
+            ->leftJoin("t.referenceImage", "r")
+            ->leftJoin("t.uploader", "u")
+            ->leftJoin("t.category", "c")->where("t.uuid = :uuid")
+            ->setParameters([
+                "uuid" => $uuid
+            ])
+            ->getQuery()
+            ->getArrayResult();
+
+        $viewmodel->setVariable("data", $data[0]);
+        return $viewmodel;
     }
 
     /**

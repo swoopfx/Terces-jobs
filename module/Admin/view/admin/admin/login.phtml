@@ -132,7 +132,7 @@ use Authentication\Controller\AuthController;
 
                     axios.post("/admin", formData).then((result) => {
                         if (result.status == 200) {
-                            window.location.href="/admin/login";
+                            window.location.href = result.data.redirect;
                             this.isSubmitting = false;
                         }
                     }).catch((err) => {
