@@ -312,6 +312,238 @@ class AppController extends AbstractActionController
         return $viewmodel;
     }
 
+    public function createHelpDeskAction()
+    {
+        $viewModel = new ViewModel();
+        $jsonModel = new JsonModel();
+        $request = $this->getRequest();
+        $response = $this->getResponse();
+        if ($request->isPost()) {
+            $post = $request->getPost()->toArray();
+            $files = $request->getFiles()->toArray();
+            $merge = array_merge($post, $files);
+            $inputFilter = new InputFilter();
+            $inputFilter->add([
+                "name" => "referenceImage",
+                'required' => true,
+                'validators' => [      // Validators.
+                    [
+                        'name' => Extension::class,
+                        'options' => [
+                            'extension' => 'jpg, jpeg, png',
+                            'message' => 'File extension not match',
+                        ],
+                    ],
+                    // [
+                    //     'name' => MimeType::class,
+                    //     'options' => [
+                    //         'mimeType' => 'text/xls', 'text/xlsx',
+                    //         'message' => 'File type not match',
+                    //     ],
+                    // ],
+                    [
+                        'name' => Size::class,
+                        'options' => [
+                            'min' => '1kB',  // minimum of 1kB
+                            'max' => '4MB',
+                            'message' => 'File too large',
+                        ],
+                    ],
+                ]
+            ]);
+
+            // $inputFilter->add([
+            //     "name" => "title",
+            //     'required' => true,
+            // ]);
+
+            $inputFilter->add([
+                "name" => "title",
+                'required' => true,
+                "allow_empty" => false,
+                "filters" => [
+                    [
+                        "name" => StripTags::class
+                    ],
+                    [
+                        "name" => StringTrim::class
+                    ]
+                ],
+                'validators' => [      // Validators.
+
+
+                    array(
+                        'name' => 'NotEmpty',
+                        'options' => array(
+                            'messages' => array(
+                                'isEmpty' => 'Please provide  newsletter title'
+                            )
+                        )
+                    ),
+                ]
+            ]);
+
+            $inputFilter->add([
+                "name" => "content",
+                'required' => true,
+                "allow_empty" => false,
+                "content" => [
+                    // [
+                    //     "name" => StripTags::class
+                    // ],
+                    [
+                        "name" => StringTrim::class
+                    ]
+                ],
+                'validators' => [      // Validators.
+
+
+                    array(
+                        'name' => 'NotEmpty',
+                        'options' => array(
+                            'messages' => array(
+                                'isEmpty' => 'Please provide  newsletter content'
+                            )
+                        )
+                    ),
+                ]
+            ]);
+
+            $inputFilter->add([
+                "name" => "category",
+                'required' => true,
+                "allow_empty" => false,
+                "content" => [
+                    [
+                        "name" => StripTags::class
+                    ],
+                    [
+                        "name" => StringTrim::class
+                    ]
+                ],
+                'validators' => [      // Validators.
+
+
+                    array(
+                        'name' => 'NotEmpty',
+                        'options' => array(
+                            'messages' => array(
+                                'isEmpty' => 'Please select category'
+                            )
+                        )
+                    ),
+                ]
+            ]);
+
+
+            $inputFilter->add([
+                "name" => "isPublished",
+                'required' => true,
+                "allow_empty" => false,
+                "content" => [
+                    [
+                        "name" => StripTags::class
+                    ],
+                    [
+                        "name" => StringTrim::class
+                    ]
+                ],
+                'validators' => [      // Validators.
+
+
+                    array(
+                        'name' => 'NotEmpty',
+                        'options' => array(
+                            'messages' => array(
+                                'isEmpty' => 'Please select the publication status'
+                            )
+                        )
+                    ),
+                ]
+            ]);
+
+            $inputFilter->setData($merge);
+            if ($inputFilter->isValid()) {
+                try {
+                    $em = $this->entityManager;
+                    $data = $inputFilter->getValues();
+                    $userEntity = $this->identity();
+                    $uuid = Uuid::uuid4();
+                    $image = $this->uploadService->upload($data["referenceImage"]);
+                    $newsletterEntity = new Newsletter();
+                    $newsletterEntity->setCreatedOn(new \Datetime())
+                        ->setUuid($uuid)
+                        ->setUploader($userEntity)->setTitle($data["title"])
+                        ->setReferenceImage($image)
+                        ->setContent($data["content"])
+                        ->setCategory($em->find(NewsletterCategory::class, $data["category"]));
+
+                    $em->persist($newsletterEntity);
+                    $em->flush();
+                    $jsonModel->setVariables([
+                        // "data" => $responseData,
+                        "status" => "success",
+                        "uuid" => $uuid
+                    ]);
+
+                    $response->setStatusCode(201);
+                } catch (\Throwable $th) {
+                    //throw $th;
+                    $jsonModel->setVariables([
+                        "messages" => $th->getMessage(),
+                        "trace" => $th->getTrace(),
+                    ]);
+                    $response->setStatusCode(400);
+                }
+            }
+        }
+       
+        return $viewModel;
+    }
+
+    public function helpDeskListAction()
+    {
+        $viewModel = new ViewModel();
+        $em = $this->entityManager;
+        $order = ($this->params()->fromQuery("order", NULL) == null ? "DESC" : "ASC");
+        $pageCount = ($this->params()->fromQuery("page_count", GeneralService::MAX_PAGE_COUNT) > 100 ? 100 : $this->params()->fromQuery("page_count", GeneralService::MAX_PAGE_COUNT));
+        $orderBy = $this->params()->fromQuery("order_by", "id");
+        $query = $em->getRepository(Newsletter::class)
+            ->createQueryBuilder("t")
+            ->select(["t", "r", "u", "c"])
+            ->leftJoin("t.referenceImage", "r")
+            ->leftJoin("t.uploader", "u")
+            ->leftJoin("t.category", "c")
+
+            ->orderBy("t.{$orderBy}", $order)
+            ->getQuery()
+            ->setHydrationMode(Query::HYDRATE_ARRAY);
+
+        $paginator = new Paginator($query);
+        $totalItems = count($paginator);
+
+        $currentPage = ($this->params()->fromQuery("page")) ?: 1;
+        $totalPageCount = ceil($totalItems / $pageCount);
+        $nextPage = (($currentPage < $totalPageCount) ? $currentPage + 1 : $totalPageCount);
+        $previousPage = (($currentPage > 1) ? $currentPage - 1 : 1);
+
+        $records = $paginator->getQuery()->setFirstResult($pageCount * ($currentPage - 1))
+            ->setMaxResults($pageCount)
+            ->getResult(Query::HYDRATE_ARRAY);
+
+        $viewModel->setVariables([
+            "previous_page" => $previousPage,
+            "next_page" => $nextPage,
+            "total_page" => $totalPageCount,
+            "data" => $records
+        ]);
+        return $viewModel;
+    }
+
+    public function editHelpDeskAction()
+    {
+    }
+
     /**
      * Set undocumented variable
      *
