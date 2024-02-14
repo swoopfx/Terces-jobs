@@ -49,8 +49,10 @@
         "psr-4": {
             "Application\\": "module/Application/src/",
             "Authentication\\": "module/Authentication/src/",
+            "Authorization\\":"module/Authorization/src/",
             "General\\": "module/General/src/",
-            "Admin\\": "module/Admin/src/"
+            "Admin\\": "module/Admin/src/",
+            "Recruiter\\": "module/Recruiter/src/"
         }
     },
     "autoload-dev": {

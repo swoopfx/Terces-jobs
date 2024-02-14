@@ -37,7 +37,7 @@ use Authentication\Controller\AuthController;
                                 <input class="form-checkbox rounded border-gray-200 dark:border-gray-800 text-emerald-600 focus:border-emerald-300 focus:ring focus:ring-offset-0 focus:ring-emerald-200 focus:ring-opacity-50 me-2" type="checkbox" value="" id="RememberMe">
                                 <label class="form-checkbox-label text-slate-400" for="RememberMe">Remember me</label>
                             </div>
-                            
+
                         </div>
 
 
@@ -56,7 +56,7 @@ use Authentication\Controller\AuthController;
                             </button>
                         </div>
                         <div class="flex justify-between mb-4">
-                          
+
                             <p class="text-slate-400 mb-0"><a href="<?= $this->url("authentication", ["controller" => "auth", "action" => "forgot-password"]) ?>" class="text-slate-400">Forgot password ?</a></p>
                         </div>
                         <div class="text-center mb-4">
@@ -151,7 +151,7 @@ if (isset($_GET["exx"]) && $_GET["exx"] == "err") {
                     this.msg.isInValidPassword = true;
 
                 } else if (this.password.length < 6) {
-                    this.msg.password = 'We expect your password should be more than 6 characters';
+                    this.msg.password = 'Invalid  credentials';
                     this.msg.isInValidPassword = true;
                 } else {
                     this.msg.password = '';

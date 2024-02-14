@@ -11,6 +11,10 @@ class GeneralService
 
     const APP_NAME = "Terces Jobs";
 
+    const APP_KEYWORDS = "Jobs";
+
+    const APP_DESCRIPTION = "online job serach";
+
     const GENERAL_TRAINING_FREE = "Business Analysis Free Hands on training";
 
     const GENERAL_TRAINING_WORK_EXPERIENCE = "Business Analysis- Self Study";

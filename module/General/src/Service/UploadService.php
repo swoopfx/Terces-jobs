@@ -94,7 +94,7 @@ class UploadService
                     ->setDocExt($mimeType);
 
                 $entityManager->persist($uploadEntity);
-                $entityManager->flush();
+              
 
                 return $uploadEntity;
             } catch (\Exception $e) {

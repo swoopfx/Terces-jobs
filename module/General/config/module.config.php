@@ -71,6 +71,9 @@ return [
             ActiveCampaignService::class => ActiveCampaignServiceFactory::class,
             PostMarkService::class => PostMarkServiceFactory::class,
             UploadService::class => UploadServiceFactory::class
+        ],
+        "aliases" => [
+            "general_service" => GeneralService::class
         ]
     ],
     'view_manager' => [

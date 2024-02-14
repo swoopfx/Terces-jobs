@@ -124,7 +124,7 @@
             },
 
             validatePassword() {
-                var regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,100}$/;
+                var regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z])(?=^.{6,100}$)[a-zA-Z0-9!@#$%^&*]/;
 
                 if (this.password == "") {
                     this.msg.password = 'Password cannot be empty';
@@ -134,7 +134,7 @@
                     this.msg.password = 'The passwod must contain a number, and a special character';
                     this.msg.isInValidPassword = true;
                 }else if (this.password.length < 6) {
-                    this.msg.password = 'We expect your password should be more than 6 characters';
+                    this.msg.password = 'The password must satisfy a number, and a special character and at least a uppercase character between 6 and 100 long';
                     this.msg.isInValidPassword = true;
                 } else {
                     this.msg.password = '';
@@ -209,7 +209,7 @@
                                     Swal.fire({
                                         icon: 'success',
                                         title: 'Registration Successfull',
-                                        text: `An email confirmation link has been sent to you email`,
+                                        text: `An email confirmation link has been sent to your email`,
 
                                     }).then(state => {
                                         window.location.href = "/login"

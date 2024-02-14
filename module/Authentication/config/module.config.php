@@ -36,7 +36,7 @@ return [
                     ],
 
                     'defaults' => [
-                        '__NAMESPACE__' => 'Application\Controller',
+                        '__NAMESPACE__' => 'Authentication',
                         'controller' => AuthController::class,
                         'action'     => 'login',
                         'id' => '[a-zA-Z0-9]*'

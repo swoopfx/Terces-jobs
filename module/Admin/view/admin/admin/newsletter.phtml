@@ -1,0 +1,188 @@
+<?php echo $this->headtitle("Create Newsletter") ?>
+<div id="anews" class="row">
+    <div class="col-lg-9 col-12 mx-auto">
+        <div class="card card-body mt-4">
+            <h6 class="mb-0">NewsLetter </h6>
+            <p class="text-sm mb-0">Create NewsLetter</p>
+            <hr class="horizontal dark my-3">
+            <label for="projectName" class="form-label">Topic</label>
+            <input type="text" v-model="topic" class="form-control" id="projectName">
+
+            <label class="mt-4">Project Description</label>
+            <p class="form-text text-muted text-xs ms-1">
+                This is how others will learn about the project, so make it good!
+            </p>
+            <quill-editor ref="myee" v-model:content="contentss" contentType="html" theme="snow"></quill-editor>
+            <label class="mt-4 form-label">Newsletter Category</label>
+            <select v-model="selectedCategory" v-if="category" class="form-control" name="choices-multiple-remove-button">
+                <option v-for="cat in category" :value="cat.id">{{cat.category}}</option>
+
+            </select>
+            <div class="row">
+                <div class="col-6">
+                    <label class="form-label">Associated Image</label>
+                    <input ref="aimage" class="form-control" type="file">
+                </div>
+                <div class="col-6">
+                    <!--  <label class="form-label">End Date</label>
+                    <input class="form-control datetimepicker" type="text" placeholder="Please select end date" data-input> -->
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label>
+                            Publish NewsLetter
+                        </label>
+
+                        <div class="form-check form-switch ms-1">
+                            <input @click="togglePublishing()" v-model="isPublish" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onclick="notify(this)" data-type="warning" data-content="Once a project is made private, you cannot revert it to a public project." data-title="Warning" data-icon="ni ni-bell-55">
+                            <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-if="isSubmitting">
+                <i class="fa-solid fa-spinner fa-4x"></i>
+            </div>
+            <div v-else class="d-flex justify-content-end mt-4">
+                <button type="button" name="button" class="btn btn-light m-0">Cancel</button>
+                <button @click="createNewsLetter" type="button" name="button" class="btn bg-gradient-primary m-0 ms-2">Create NewsLetter</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // var editor = new Quill('#edit-deschiption', {
+    //         theme: 'snow' // Specify theme in configuration
+    //     });
+
+    const aNewsApp = Vue.createApp({
+        data() {
+            return {
+                noFiles: true,
+                key: 'value',
+                topic: "",
+                category: "",
+                contentss: "",
+                selectedCategory: '',
+                rImage: "",
+                isPublish: false,
+                isSubmitting: false
+
+            }
+        },
+        mounted() {
+            this.getNewletterCategory();
+        },
+        methods: {
+            togglePublishing() {
+                this.isPublish = !this.isPublish
+            },
+
+            getNewletterCategory() {
+                axios.get("/apps/news/web/get-newsletter-category").then((result) => {
+                    if (result.status == 200) {
+                        // console.log(result.data.data);
+                        this.category = result.data.data;
+                    }
+                }).catch((err) => {
+                    this.$toast.open({
+                        message: err.response.data.messages,
+                        type: "error",
+                        position: "top-right",
+                        duration: 30000,
+                        dismissible: true
+                    });
+                });
+            },
+
+            createNewsLetter() {
+                this.isSubmitting = true;
+                // var myEditor = document.querySelector('#edit-deschiption')
+                // var html = myEditor.children[0].innerHTML
+
+                let quill = this.$refs.myee.getQuill();
+                let html = quill.root.innerHTML;
+                if (this.noFiles = !this.$refs.aimage.files.length) {
+
+                    this.$toast.open({
+                        message: "A referenced image is required",
+                        type: "error",
+                        position: "top-right",
+                        duration: 20000,
+                        dismissible: true
+                    });
+                    this.isSubmitting = false;
+                } else if (this.topic == "" || this.selectedCategory == "" || this.contentss == "") {
+                    this.$toast.open({
+                        message: "A required file is empty please check and upload required document",
+                        type: "error",
+                        position: "top-right",
+                        duration: 20000,
+                        dismissible: true
+                    })
+                    this.isSubmitting = false;
+                } else {
+                    let uFile = this.$refs.aimage.files[0];
+                    if (uFile.size > 1024 * 1024 * 2) {
+                        this.$toast.open({
+                            message: "License file should notbe more than 2MB",
+                            type: "error",
+                            position: "top-right",
+                            duration: 30000,
+                            dismissible: true
+                        });
+                        this.isSubmitting = false;
+                    } else {
+                        let formData = new FormData();
+
+                        formData.append("title", this.topic);
+                        formData.append("content", JSON.stringify(html));
+                        formData.append("isPublished", this.isPublish);
+                        formData.append("category", this.selectedCategory);
+                        formData.append("referenceImage", this.$refs.aimage.files[0]);
+                        axios.post("/admin/app/web/createnews", formData, {
+                            headers: {
+                                "Content-Type": "multipart/form-data"
+                            }
+                        }).then((result) => {
+                            if (result.status == 201) {
+                                window.location.href = ""; // redirect to list of lesteters
+                            }
+                            this.isSubmitting = false;
+                        }).catch((err) => {
+                            this.$toast.open({
+                                message: err.response.data.messages,
+                                type: "error",
+                                position: "top-right",
+                                duration: 30000,
+                                dismissible: true
+                            });
+                            this.isSubmitting = false;
+                        });
+                    }
+                }
+            }
+        },
+    });
+    aNewsApp.use(VueToast.ToastPlugin);
+    aNewsApp.component('QuillEditor', VueQuill.QuillEditor);
+    aNewsApp.mount("#anews")
+</script>
+
+
+
+<?php $this->inlineScript()->appendFile($this->basePath('soft/js/core/popper.min.js'))
+    ->appendFile($this->basePath('soft/js/core/bootstrap.min.js'))
+    ->appendFile($this->basePath('soft/js/plugins/perfect-scrollbar.min.js'))
+    ->appendFile($this->basePath('soft/js/plugins/smooth-scrollbar.min.js'))
+    ->appendFile($this->basePath('soft/js/plugins/choices.min.js'))
+    ->appendFile($this->basePath('soft/js/plugins/quill.min.js'))
+    ->appendFile($this->basePath('soft/js/plugins/flatpickr.min.js'))
+    ->appendFile($this->basePath('soft/js/plugins/dropzone.min.js'))
+    ->appendFile($this->basePath('soft/js/plugins/dragula/dragula.min.js'))
+    ->appendFile($this->basePath('soft/js/plugins/jkanban/jkanban.js')); ?>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
