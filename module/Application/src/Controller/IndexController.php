@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManager;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\JsonModel;
 use Laminas\View\Model\ViewModel;
+use Application\Entity\HelpPage;
 
 class IndexController extends AbstractActionController
 {
@@ -34,8 +35,30 @@ class IndexController extends AbstractActionController
         return $jsonModel;
     }
 
-    public function getHelpPageAction(){
+    public function getHelpPageAction()
+    {
         $jsonModel = new JsonModel();
+        $id = $this->params()->fromRoute("id", NULL);
+        $em = $this->entityManager;
+        $response = $this->getResponse();
+        try {
+            if ($id == NULL) {
+                throw new \Exception("Absent identifier");
+            }
+            $data = $em->getRepository(HelpPage::class)->createQueryBuilder("h")->select(["h", "c"])->leftJoin("h.category", "c")->where("c.uuid = :uuid")->setParameters([
+                "uuid" => $id
+            ])->getQuery()->getArrayResult();
+            $jsonModel->setVariables([
+                "data" => $data
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            $jsonModel->setVariables([
+                "success" => false,
+                "error" => $th->getMessage()
+            ]);
+            $response->setStatusCode(400);
+        }
         return $jsonModel;
     }
 

@@ -6,6 +6,7 @@ namespace Application;
 
 use Application\Controller\ApplicationController;
 use Application\Controller\Factory\ApplicationControllerFactory;
+use Application\Controller\Factory\IndexControllerFactory;
 use Application\Controller\Factory\NewsControllerFactory;
 use Application\Controller\IndexController;
 use Application\Controller\NewsController;
@@ -15,7 +16,7 @@ use Laminas\Router\Http\Segment;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
-    
+
     'router' => [
         'routes' => [
             'home' => [
@@ -23,7 +24,7 @@ return [
                 'options' => [
                     'route'    => '/',
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
+                        'controller' => IndexController::class,
                         'action'     => 'index',
                     ],
                 ],
@@ -69,13 +70,14 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
+            IndexController::class => IndexControllerFactory::class,
             ApplicationController::class => ApplicationControllerFactory::class,
             NewsController::class => NewsControllerFactory::class
         ],
         "aliases" => [
             "application" => ApplicationController::class,
-            "news" => NewsController::class
+            "news" => NewsController::class,
+            "appsindex" => IndexController::class,
         ]
     ],
     'view_manager' => [
