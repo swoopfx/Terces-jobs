@@ -1,4 +1,8 @@
-<?php echo $this->headtitle(); ?>
+<?php
+
+use General\Service\GeneralService;
+
+ echo $this->headtitle(); ?>
 
 <!-- Start Hero -->
 <section class="relative table w-full py-36 bg-[url('../../assets/images/hero/bg.jpg')] bg-top bg-no-repeat bg-cover">
@@ -12,8 +16,8 @@
 
     <div class="absolute text-center z-10 bottom-5 start-0 end-0 mx-3">
         <ul class="breadcrumb tracking-[0.5px] breadcrumb-light mb-0 inline-block">
-            <li class="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white/50 hover:text-white"><a href="index.html">Jobstack</a></li>
-            <li class="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white/50 hover:text-white"><a href="helpcenter-overview.html">Helpcenter</a></li>
+            <li class="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white/50 hover:text-white"><a href="<?= $this->url("home") ?>"><?= GeneralService::APP_NAME ?></a></li>
+            <li class="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white/50 hover:text-white"><a href="<?= $this->url("home") ?>">Helpcenter</a></li>
             <li class="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white" aria-current="page">Guides</li>
         </ul>
     </div>

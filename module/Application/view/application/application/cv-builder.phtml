@@ -1,0 +1,88 @@
+<?php
+
+use General\Service\GeneralService;
+
+echo $this->headtitle("Resume Builder"); ?>
+<section class="relative table w-full py-36 bg-[url('../../assets/images/hero/bg.jpg')] bg-top bg-no-repeat bg-cover">
+    <div class="absolute inset-0 bg-emerald-900/90"></div>
+    <div class="container">
+        <div class="grid grid-cols-1 text-center mt-10">
+            <h3 class="md:text-3xl text-2xl md:leading-snug tracking-wide leading-snug font-medium text-white">CV Builder</h3>
+
+        </div><!--end grid-->
+    </div><!--end container-->
+
+    <div class="absolute text-center z-10 bottom-5 start-0 end-0 mx-3">
+        <ul class="breadcrumb tracking-[0.5px] breadcrumb-light mb-0 inline-block">
+            <li class="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white/50 hover:text-white"><a href="index.html"><?= GeneralService::APP_NAME ?></a></li>
+            <li class="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white" aria-current="page">About Us</li>
+        </ul>
+    </div>
+</section><!--end section-->
+<div class="relative">
+    <div class="shape absolute start-0 end-0 sm:-bottom-px -bottom-[2px] overflow-hidden z-1 text-white dark:text-slate-900">
+        <svg class="w-full h-auto" viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+        </svg>
+    </div>
+</div>
+
+<section class="relative md:py-24 py-16">
+
+    <div class="container-fluid md:mt-24 mt-16">
+        <div class="container">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div class="relative overflow-hidden lg:px-8 px-6 py-10 rounded-xl shadow-lg dark:shadow-gray-700">
+                    <div class="grid md:grid-cols-12 grid-cols-1 items-center gap-[30px]">
+                        <div class="lg:col-span-8 md:col-span-7">
+                            <div class="ltr:md:text-left rtl:md:text-right text-center relative z-1">
+                                <h3 class="text-2xl font-semibold text-black dark:text-white mb-4">Create New Resume</h3>
+                                <p class="text-slate-400 max-w-xl">Use to create a new resume.</p>
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="lg:col-span-4 md:col-span-5">
+                            <div class="ltr:text-right rtl:text-left relative z-1">
+                                <a href="<?= $this->url("apps", ["controller" => "resume", "action" => "create-resume"]); ?>" class="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 dark:border-emerald-600 text-white rounded-md">Create Now</a>
+
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end grid-->
+
+                    <div class="absolute -top-5 -start-5">
+                        <div class="uil uil-envelope lg:text-[150px] text-7xl text-black/5 dark:text-white/5 ltr:-rotate-45 rtl:rotate-45"></div>
+                    </div>
+
+                    <div class="absolute -bottom-5 -end-5">
+                        <div class="uil uil-pen lg:text-[150px] text-7xl text-black/5 dark:text-white/5 rtl:-rotate-90"></div>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden lg:px-8 px-6 py-10 rounded-xl shadow-lg dark:shadow-gray-700">
+                    <div class="grid md:grid-cols-12 grid-cols-1 items-center gap-[30px]">
+                        <div class="lg:col-span-8 md:col-span-7">
+                            <div class="ltr:md:text-left rtl:md:text-right text-center relative z-1">
+                                <h3 class="text-2xl font-semibold text-black dark:text-white mb-4">Upload Resume</h3>
+                                <p class="text-slate-400 max-w-xl">Use to upload already available resume</p>
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="lg:col-span-4 md:col-span-5">
+                            <div class="ltr:text-right rtl:text-left relative z-1">
+                                <a href="<?= $this->url("apps", ["controller" => "resume", "action" => "upload-resume"]); ?>" class="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 dark:border-emerald-600 text-white rounded-md">Upload Now</a>
+
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end grid-->
+
+                    <div class="absolute -top-5 -start-5">
+                        <div class="uil uil-envelope lg:text-[150px] text-7xl text-black/5 dark:text-white/5 ltr:-rotate-45 rtl:rotate-45"></div>
+                    </div>
+
+                    <div class="absolute -bottom-5 -end-5">
+                        <div class="uil uil-pen lg:text-[150px] text-7xl text-black/5 dark:text-white/5 rtl:-rotate-90"></div>
+                    </div>
+                </div>
+            </div><!--end grid-->
+        </div><!--end container-->
+    </div><!--end container-->
+</section>

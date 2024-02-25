@@ -6,6 +6,8 @@ use Admin\Controller\AdminController;
 use Admin\Controller\AppController;
 use Admin\Controller\Factory\AdminControllerFactory;
 use Admin\Controller\Factory\AppControllerFactory;
+use Application\Controller\Factory\ResumeControllerFactory;
+use Application\Controller\ResumeController;
 use Laminas\Router\Http\Segment;
 
 return [
@@ -51,11 +53,13 @@ return [
     "controllers" => [
         "factories" => [
             AdminController::class => AdminControllerFactory::class,
-            AppController::class => AppControllerFactory::class
+            AppController::class => AppControllerFactory::class,
+            ResumeController::class=>ResumeControllerFactory::class
         ],
         "aliases" => [
             "admin" => AdminController::class,
             "app"=>AppController::class,
+            "resume"=>ResumeController::class
         ]
     ]
 ];
