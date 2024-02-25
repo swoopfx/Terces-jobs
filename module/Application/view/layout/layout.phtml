@@ -169,7 +169,7 @@ use General\Service\GeneralService;
                     <li class="has-submenu parent-parent-menu-item"><a href="javascript:void(0)"> Services </a><span class="menu-arrow"></span>
                         <ul class="submenu">
                             <li><a href="<?= $this->url("app", ["controller" => "application", "action" => "lazy-applicant"]) ?>" class="sub-menu-item">Lazy Applicant</a></li>
-                            <li><a href="<?= $this->url("app", ["controller" => "application", "action" => "career-service"]) ?>" class="sub-menu-item">Career Service</a></li>
+                            <li><a href="<?= $this->url("app", ["controller" => "application", "action" => "career-advice"]) ?>" class="sub-menu-item">Career Advice</a></li>
 
                             <!-- <li class="has-submenu parent-menu-item">
                                 <a href="javascript:void(0)"> Job Grids </a><span class="submenu-arrow"></span>
@@ -373,12 +373,14 @@ use General\Service\GeneralService;
                                 <h4 class="md:text-xl text-xl md:leading-snug tracking-wide leading-snug font-medium text-white">About Us</h4>
                                 <ul class="list-disc footer-list ltr:md:text-left rtl:md:text-left text-center space-x-3">
                                     <br>
-                                    <li class="mb-1 "><a href="<?= $this->url("app", ["controller" => "application", "action" => "opportunities"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Opportunities</a></li>
-                                    <li class="mb-1  mt-[10px] md:mt-0"><a href="<?= $this->url("app", ["controller" => "application", "action" => "about"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">About</a></li>
+
+                                    <li class="mb-1  mt-[10px] md:mt-0"><a href="<?= $this->url("app", ["controller" => "application", "action" => "about"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">About Us</a></li>
                                     <li class="mb-1  mt-[10px] md:mt-0"><a href="<?= $this->url("app", ["controller" => "application", "action" => "browsejobs"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Browse Jobs</a></li>
                                     <li class=" mt-[10px] md:mt-0"><a href="<?= $this->url("app", ["controller" => "application", "action" => "terms"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Terms & Conditions</a></li>
                                     <li class=" mt-[10px] md:mt-0"><a href="<?= $this->url("app", ["controller" => "application", "action" => "privacy"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Privacy</a></li>
                                     <li class=" mt-[10px] md:mt-0"><a href="<?= $this->url("app", ["controller" => "application", "action" => "newsletter"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Newsletters</a></li>
+                                    <li class="mb-1 "><a href="<?= $this->url("app", ["controller" => "application", "action" => "opportunities"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Opportunities</a></li>
+                                    <li class="mb-1 "><a href="<?= $this->url("app", ["controller" => "application", "action" => "career-advice"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Career Advice</a></li>
                                 </ul><!--end icon-->
                             </div><!--end col-->
 
@@ -407,7 +409,7 @@ use General\Service\GeneralService;
                                         <li class=" mt-[10px] md:mt-0"><a href="<?= $this->url("authentication", ["controller" => "recruiter", "action" => "register"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Recruiter Register</a></li>
                                     <?php endif; ?>
                                     <li class=""><a href="<?= $this->url("app", ["controller" => "application", "action" => "recruiters-blog"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Upload CV</a></li>
-                                    <li class=""><a href="<?= $this->url("app", ["controller" => "application", "action" => "recruiters-blog"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">CV Builder</a></li>
+                                    <li class=""><a href="<?= $this->url("app", ["controller" => "application", "action" => "cv-builder"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">CV Builder</a></li>
                                     <li class=""><a href="<?= $this->url("recruiter", ["interface" => "web", "controller" => "recruiter", "action" => "post-job"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Advertise a job</a></li>
                                     <li class=""><a href="<?= $this->url("app", ["controller" => "application", "action" => "recruiters-blog"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Recruiters blog</a></li>
 
