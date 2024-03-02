@@ -3,6 +3,8 @@
 namespace General\Service\Factory;
 
 use Doctrine\ORM\EntityManager;
+use Elastic\Elasticsearch\Client;
+use Elasticsearch\ClientBuilder;
 use General\Entity\Settings;
 use General\Service\GeneralService;
 use Laminas\Authentication\AuthenticationService;
@@ -19,9 +21,56 @@ class GeneralServiceFactory implements FactoryInterface
          */
         $entityManager = $container->get(EntityManager::class);
         $authService = $container->get("authentication_service");
+        $config = $container->get("config");
+        $elasticConfig = $config["elasticsearch"];
+        /**
+         * @var Client
+         */
+
+
+
+
+
+        try {
+
+            $client = ClientBuilder::create()->setHosts([$elasticConfig["host"]])
+
+                ->build();
+
+            // if ($elasticConfig["is_cloud"]) {
+            //     if ($elasticConfig["cloud_auth_type"]["api_auth"]) {
+            //         $client = ClientBuilder::create()->setElasticCloudId($elasticConfig["cloud_auth_type"]["cloud_id"])
+            //             ->setApiKey($elasticConfig["cloud_auth_type"]["api_cred"]["api_id"], $elasticConfig["cloud_auth_type"]["api_cred"]["api_key"])
+            //             ->build();
+            //     } else if ($elasticConfig["cloud_auth_type"]["basic_auth"]) {
+            //         $client  = ClientBuilder::create()->setElasticCloudId($elasticConfig["cloud_auth_type"]["cloud_id"])
+            //             ->setBasicAuthentication($elasticConfig["cloud_auth_type"]["basic_cred"]["username"], $elasticConfig["cloud_auth_type"]["basic_cred"]["password"])
+            //             ->build();
+            //     }
+            // }
+        } catch (\Throwable $th) {
+            throw new \Exception("Could not connect to elasticsearch");
+        }
+        // $indexed = $client->index([
+        //     'index' => 'children',
+        //     // 'type' => 'child',
+        //     'body' => [
+        //         'name' => "Segun",
+        //         'gender' => "male",
+        //         'age' => 23,
+        //         'complexion' => "white",
+        //         'attributes' => "Something"
+        //     ],
+        // ]);
+
+        // var_dump($client->info());
+
         // $settings = $entityManager->find(Settings::class, 100);
         $settings = "";
-        $ctr->setEntityManager($entityManager)->setAuth($authService)->setSettings($settings);
+        $ctr->setEntityManager($entityManager)
+            ->setAuth($authService)
+            ->setSettings($settings)
+            ->setElasticClient($client);
         return $ctr;
     }
 }

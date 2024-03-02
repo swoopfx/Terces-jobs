@@ -5,6 +5,7 @@ namespace Authentication\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Authentication\Entity\UserState;
 use Authentication\Entity\Roles;
+use Recruiter\Entity\RecruiterProfile;
 // use Customer\Entity\Customer;
 // use Wallet\Entity\Wallet;
 
@@ -195,12 +196,20 @@ class User
      */
     private $isActive;
 
+    // /**
+    //  * Undocumented variable
+    //  * @ORM\Column(nullable=true)
+    //  * @var string
+    //  */
+    // private $companyName;
+
     /**
      * Undocumented variable
-     * @ORM\Column(nullable=true)
-     * @var string
+     *
+     * @ORM\OneToMany(targetEntity="Recruiter\Entity\RecruiterProfile", mappedBy="user")
+     * @var Collection<int, RecruiterProfile>
      */
-    private $companyName;
+    private $recruiterProfile;
 
 
 
@@ -740,7 +749,7 @@ class User
      * @param  string  $companyName  Undocumented variable
      *
      * @return  self
-     */ 
+     */
     public function setCompanyName(string $companyName)
     {
         $this->companyName = $companyName;

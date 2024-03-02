@@ -107,7 +107,7 @@ return [
         ],
         "aliases" => [
             "auth" => AuthController::class,
-            "recruiter" => RecruiterController::class,
+            "auth-recruiter" => RecruiterController::class,
         ]
     ],
 
