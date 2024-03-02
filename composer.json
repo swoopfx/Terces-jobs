@@ -44,9 +44,10 @@
         "enqueue/amqp-lib": "^0.10.19",
         "laminas/laminas-mvc-plugin-flashmessenger": "^1.10",
         "google/apiclient": "^2.15",
-        "elasticsearch/elasticsearch": "^8.12",
+        "elasticsearch/elasticsearch": "^7.17",
         "mongodb/mongodb": "^1.17",
-        "doctrine/mongodb-odm": "^2.6"
+        "doctrine/mongodb-odm": "^2.6",
+        "doctrine/doctrine-mongo-odm-module": "^5.1"
        
     },
     "autoload": {
@@ -56,7 +57,8 @@
             "Authorization\\":"module/Authorization/src/",
             "General\\": "module/General/src/",
             "Admin\\": "module/Admin/src/",
-            "Recruiter\\": "module/Recruiter/src/"
+            "Recruiter\\": "module/Recruiter/src/",
+            "Elastic\\": "module/Elastic/src/"
         }
     },
     "autoload-dev": {

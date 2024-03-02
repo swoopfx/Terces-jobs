@@ -406,7 +406,7 @@ use General\Service\GeneralService;
                                     <?php else : ?>
                                         <li class=""><a href="<?= $this->url("login") ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Login</a></li>
                                         <li class=" mt-[10px] md:mt-0"><a href="<?= $this->url("register") ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Job Seeker Register</a></li>
-                                        <li class=" mt-[10px] md:mt-0"><a href="<?= $this->url("authentication", ["controller" => "recruiter", "action" => "register"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Recruiter Register</a></li>
+                                        <li class=" mt-[10px] md:mt-0"><a href="<?= $this->url("authentication", ["controller" => "auth-recruiter", "action" => "register"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Recruiter Register</a></li>
                                     <?php endif; ?>
                                     <li class=""><a href="<?= $this->url("app", ["controller" => "application", "action" => "recruiters-blog"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Upload CV</a></li>
                                     <li class=""><a href="<?= $this->url("app", ["controller" => "application", "action" => "cv-builder"]) ?>" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">CV Builder</a></li>

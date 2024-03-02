@@ -4,6 +4,7 @@ namespace Recruiter\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
 use Laminas\View\Model\ViewModel;
 
 class RecruiterController extends AbstractActionController
@@ -24,12 +25,18 @@ class RecruiterController extends AbstractActionController
     }
     public function postJobAction()
     {
-       
+
         $viewModel = new ViewModel();
         return $viewModel;
     }
 
-
+    public function getRecruiterCompanyAction()
+    {
+        $jsonModel = new JsonModel();
+        $em = $this->entityManager;
+        // $data = $em->getRepository()
+        return $jsonModel;
+    }
 
     /**
      * Set undocumented variable

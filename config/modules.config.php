@@ -31,10 +31,13 @@ return [
     'DoctrineModule',
     'DoctrineORMModule',
     'AcMailer',
+    'DoctrineMongoODMModule',
     'Application',
     'General',
+    "Elastic",
     "Authentication",
     "Authorization",
     "Admin",
     "Recruiter"
+   
 ];

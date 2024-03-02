@@ -2,9 +2,8 @@
 
 namespace Recruiter;
 
-use Laminas\Mvc\MvcEvent;
-
-;
+use Laminas\ModuleManager\ModuleManager;
+use Laminas\Mvc\MvcEvent;;
 
 
 class Module
@@ -14,6 +13,15 @@ class Module
         /** @var array $config */
         $config = include __DIR__ . '/../config/module.config.php';
         return $config;
+    }
+
+    public function init(ModuleManager $moduleManager)
+    {
+        $sharedEvent = $moduleManager->getEventManager()->getSharedManager();
+        $sharedEvent->attach(__NAMESPACE__, 'dispatch', function ($e) {
+            $controller = $e->getTarget();
+            $controller->layout('recruiter-layout');
+        });
     }
 
 

@@ -1,231 +1,181 @@
 <?php echo $this->headtitle("Recruiter Post job"); ?>
 
-<section class="relative table w-full py-36 bg-[url('../../assets/images/hero/bg.jpg')] bg-top bg-no-repeat bg-cover">
-    <div class="absolute inset-0 bg-emerald-900/90"></div>
-    <div class="container">
-        <div class="grid grid-cols-1 text-center mt-10">
-            <h3 class="md:text-3xl text-2xl md:leading-snug tracking-wide leading-snug font-medium text-white">Job Post</h3>
-
-        </div><!--end grid-->
-    </div><!--end container-->
-
-    <div class="absolute text-center z-10 bottom-5 start-0 end-0 mx-3">
-        <ul class="breadcrumb tracking-[0.5px] breadcrumb-light mb-0 inline-block">
-            <li class="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white/50 hover:text-white"><a href="index.html">Jobstack</a></li>
-            <li class="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white" aria-current="page">Job Post</li>
-        </ul>
-    </div>
-</section><!--end section-->
-<!-- Start -->
-
-<div class="relative">
-    <div class="shape absolute start-0 end-0 sm:-bottom-px -bottom-[2px] overflow-hidden z-1 text-slate-50 dark:text-slate-800">
-        <svg class="w-full h-auto" viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
-        </svg>
-    </div>
-</div>
-<!-- End Hero -->
-
-
-<section class="relative bg-slate-50 dark:bg-slate-800 lg:py-24 py-16">
-    <div class="container">
-        <div class="lg:flex justify-center">
-            <div class="lg:w-2/3">
-                <div class="p-6 bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
-                    <form id="postjob" class="text-left">
-                        <div class="grid grid-cols-2">
-                            <h5 class="text-lg font-semibold">Job Details:</h5>
-                        </div>
-
-                        <div class="grid grid-cols-12 gap-4 mt-4">
-                            <div class="col-span-12 ltr:text-left rtl:text-right">
-                                <label class="font-semibold" for="RegisterName">Job Title:</label>
-                                <i data-feather="dollar-sign" class="w-4 h-4 absolute top-3 start-3"></i>
-                                <input v-model="jobTitle" id="RegisterName" type="text" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="Web Developer">
-                            </div>
-
-                            <div class="col-span-9 md:col-span-9 ltr:text-left rtl:text-right">
-                                <label class="font-semibold" for="RegisterName">Job Tit:</label>
-                                <input v-model="jobTitle" id="RegisterName" type="text" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="Web Developer">
-                               
-                            </div>
-
-                            <div class="col-span-3 md:col-span-3 ltr:text-left rtl:text-right">
-                                <label class="font-semibold" for="RegisterName">Job Tit:</label>
-                                <input v-model="jobTitle" id="RegisterName" type="text" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="Web Developer">
-                               
-                            </div>
-                            
-
-
-
-                            <div class="col-span-12 ltr:text-left rtl:text-right">
-                                <label for="comments" class="font-semibold">Job Description:</label>
-                                <textarea name="comments" id="comments" class="form-input border border-slate-100 dark:border-slate-800 mt-1 textarea" placeholder="Write Job Description :"></textarea>
-                            </div>
-
-                            <div class="md:col-span-6 col-span-12 ltr:text-left rtl:text-right">
-                                <label class="font-semibold">Job Categories:</label>
-                                <select class="form-select form-input border border-slate-100 dark:border-slate-800 block w-full mt-1">
-                                    <option value="WD">Web Designer</option>
-                                    <option value="WD">Web Developer</option>
-                                    <option value="UI">UI / UX Desinger</option>
-                                </select>
-                            </div>
-
-                            <div class="md:col-span-6 col-span-12 ltr:text-left rtl:text-right">
-                                <label class="font-semibold">Job Type:</label>
-                                <select class="form-select form-input border border-slate-100 dark:border-slate-800 block w-full mt-1">
-                                    <option value="FT">Full Time</option>
-                                    <option value="PT">Part Time</option>
-                                    <option value="WFH">Work From Home</option>
-                                    <option value="RJ">Remote Job</option>
-                                </select>
-                            </div>
-
-                            <div class="md:col-span-6 col-span-12 ltr:text-left rtl:text-right">
-                                <label class="font-semibold">Salary:</label>
-                                <select class="form-select form-input border border-slate-100 dark:border-slate-800 block w-full mt-1">
-                                    <option value="HOURL">Hourly</option>
-                                    <option value="MONTH">Monthly</option>
-                                </select>
-                            </div>
-
-                            <div class="md:col-span-3 col-span-12 ltr:text-left rtl:text-right">
-                                <label class="font-semibold md:invisible md:block hidden">Min:</label>
-                                <div class="relative mt-1">
-                                    <span class="w-10 h-10 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 absolute top-0 start-0 overflow-hidden rounded">
-                                        <i data-feather="dollar-sign" class="w-4 h-4 absolute top-3 start-3"></i>
-                                    </span>
-                                    <input type="number" class="form-input border border-slate-100 dark:border-slate-800 ps-12" placeholder="min" name="minsalary">
-                                </div>
-                            </div>
-
-                            <div class="md:col-span-3 col-span-12 ltr:text-left rtl:text-right">
-                                <label class="font-semibold md:invisible md:block hidden">Max:</label>
-                                <div class="relative mt-1">
-                                    <span class="w-10 h-10 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 absolute top-0 start-0 overflow-hidden rounded">
-                                        <i data-feather="dollar-sign" class="w-4 h-4 absolute top-3 start-3"></i>
-                                    </span>
-                                    <input type="number" class="form-input border border-slate-100 dark:border-slate-800 ps-12" placeholder="max" name="maxsalary">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 mt-8">
-                            <h5 class="text-lg font-semibold">Skill & Experience:</h5>
-                        </div>
-
-                        <div class="grid grid-cols-12 gap-4 mt-4">
-                            <div class="col-span-12 ltr:text-left rtl:text-right">
-                                <label class="font-semibold" for="Skillname">Skills:</label>
-                                <input id="Skillname" type="text" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="Web Developer">
-                            </div>
-
-                            <div class="md:col-span-6 col-span-12 ltr:text-left rtl:text-right">
-                                <label class="font-semibold" for="Qualificationname">Qualifications:</label>
-                                <input id="Qualificationname" type="text" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="Qualifications">
-                            </div>
-
-                            <div class="md:col-span-6 col-span-12 ltr:text-left rtl:text-right">
-                                <label class="font-semibold" for="Experiencename">Experience:</label>
-                                <input id="Experiencename" type="text" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="Experience">
-                            </div>
-
-                            <div class="md:col-span-6 col-span-12 ltr:text-left rtl:text-right">
-                                <label class="font-semibold">Industry:</label>
-                                <select class="form-select form-input border border-slate-100 dark:border-slate-800 block w-full mt-1">
-                                    <option value="BANK">Banking</option>
-                                    <option value="BIO">Biotechnology</option>
-                                    <option value="AVI">Aviation</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 mt-8">
-                            <h5 class="text-lg font-semibold">Address:</h5>
-                        </div>
-
-                        <div class="grid grid-cols-12 gap-4 mt-4">
-                            <div class="col-span-12 ltr:text-left rtl:text-right">
-                                <label class="font-semibold" for="Address">Address:</label>
-                                <input id="Address" type="text" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="Address">
-                            </div>
-
-                            <div class="md:col-span-4 col-span-12 ltr:text-left rtl:text-right">
-                                <label class="font-semibold">Country:</label>
-                                <select class="form-select form-input border border-slate-100 dark:border-slate-800 block w-full mt-1">
-                                    <option value="USA">USA</option>
-                                    <option value="CAD">Canada</option>
-                                    <option value="CHINA">China</option>
-                                </select>
-                            </div>
-
-                            <div class="md:col-span-4 col-span-12 ltr:text-left rtl:text-right">
-                                <label class="font-semibold">State:</label>
-                                <select class="form-select form-input border border-slate-100 dark:border-slate-800 block w-full mt-1">
-                                    <option value="CAL">California</option>
-                                    <option value="TEX">Texas</option>
-                                    <option value="FLOR">Florida</option>
-                                </select>
-                            </div>
-
-                            <div class="col-span-12 ltr:text-left rtl:text-right">
-                                <div class="w-full leading-[0] border-0">
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d39206.002432144705!2d-95.4973981212445!3d29.709510002925988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640c16de81f3ca5%3A0xf43e0b60ae539ac9!2sGerald+D.+Hines+Waterwall+Park!5e0!3m2!1sen!2sin!4v1566305861440!5m2!1sen!2sin" style="border:0" class="w-full h-[200px] rounded shadow" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 gap-4 mt-4">
-                            <div>
-                                <button type="submit" id="submit" name="send" class="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white">Post Now</button>
-                            </div>
-                        </div>
-                    </form><!--end form-->
-
-
+<link rel="stylesheet" href="https://unpkg.com/vue3-form-wizard/dist/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@vueup/vue-quill@1.2.0/dist/vue-quill.snow.prod.css">
+<div id="postjob">
+    <div class="parallax overflow-hidden bg-blue-400 page-section third">
+        <div class="container parallax-layer" data-opacity="true">
+            <div class="media v-middle">
+                <div class="media-left text-center">
 
                 </div>
+                <div class="media-body">
+                    <h1 class="text-white text-display-1 margin-v-0">John Doe</h1>
+
+                </div>
+
             </div>
-        </div><!--end flex-->
-    </div><!--end container-->
-</section><!--end section-->
-<!-- End -->
+        </div>
+    </div>
+
+
+    <div class="parallax bg-white page-section third">
+        <div class="container parallax-layer" data-opacity="true">
+            <div class="media v-middle media-overflow-visible">
+                <div class="media-left">
+                    <span class="icon-block s30 bg-lightred"><i class="fa fa-github"></i></span>
+                </div>
+                <div class="media-body">
+                    <div class="text-headline">Github Webhooks for Beginners</div>
+                </div>
+                <div class="media-right">
+                    <div class="dropdown">
+                        <a class="btn btn-white dropdown-toggle" data-toggle="dropdown" href="#">Course <span class="caret"></span></a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="">Something</a></li>
+                            <li><a href="">Something else</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="page-section">
+            <div class="row">
 
 
 
-<div class="container m-auto grid grid-cols-2">
-    <div class="tile bg-teal-500">
-        <h1 class="tile-marker">ONE</h1>
-    </div>
-    <div class="tile bg-amber-500">
-        <h1 class="tile-marker">TWO</h1>
-    </div>
-    <div class="tile bg-yellow-500">
-        <h1 class="tile-marker">THREE</h1>
-    </div>
-    <div class="tile bg-lime-600">
-        <h1 class="tile-marker">FOUR</h1>
-    </div>
-    <div class="tile bg-green-600">
-        <h1 class="tile-marker">FIVE</h1>
-    </div>
-    <div class="tile bg-emerald-500">
-        <h1 class="tile-marker">SIX</h1>
-    </div>
-    <div class="tile bg-teal-500">
-        <h1 class="tile-marker">SEVEN</h1>
-    </div>
-    <div class="tile bg-purple-500">
-        <h1 class="tile-marker">EIGHT</h1>
-    </div>
-    <div class="tile bg-pink-500">
-        <h1 class="tile-marker">NINE</h1>
+                <div class="col-md-9">
+
+                    <h2 class="page-section-heading">Post a Job</h2>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+
+                            <form-wizard @on-complete="onComplete" @on-validate="handleValidation" @on-loading="setLoading" color="#064E3B">
+                                <tab-content :before-change="validateAsync" title="Basic Job info">
+
+                                    <?= $this->partial("recruiterPartial-basic-form-job-info") ?>
+
+                                </tab-content>
+                                <tab-content :before-change="validateAsync" title="Job Description">
+                                    <?= $this->partial("recruiterPartial-job-description-form"); ?>
+                                </tab-content>
+                                <tab-content title="Overview">
+                                    Overview
+                                </tab-content>
+                                <div class="loader" v-if="loadingWizard"></div>
+                            </form-wizard>
+
+                        </div>
+                    </div>
+
+
+
+
+                    <br />
+                    <br />
+
+                </div>
+                <div class="col-md-3">
+
+                    <div class="panel panel-default" data-toggle="panel-collapse" data-open="true">
+                        <div class="panel-heading panel-collapse-trigger">
+                            <h4 class="panel-title">Resources</h4>
+                        </div>
+                        <div class="panel-body list-group">
+                            <ul class="list-group list-group-menu">
+                                <li class="list-group-item active"><a class="link-text-color" href="website-take-course.html">Curriculum</a></li>
+                                <li class="list-group-item"><a class="link-text-color" href="website-course-forums.html">Course Forums</a></li>
+                                <li class="list-group-item"><a class="link-text-color" href="website-take-quiz.html">Take Quiz</a></li>
+                                <li class="list-group-item"><a class="link-text-color" href="website-quiz-results.html">Quiz Results</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default" data-toggle="panel-collapse" data-open="true">
+                        <div class="panel-heading panel-collapse-trigger">
+                            <h4 class="panel-title">Instructor</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="media v-middle">
+                                <div class="media-left">
+                                    <img src="images/people/110/guy-6.jpg" alt="About Adrian" width="60" class="img-circle" />
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="text-title margin-none"><a href="#">Adrian Demian</a></h4>
+                                    <span class="caption text-light">Biography</span>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="expandable expandable-indicator-white expandable-trigger">
+                                <div class="expandable-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus aut consectetur consequatur cum cupiditate debitis doloribus, error ex explicabo harum illum minima mollitia nisi nostrum officiis omnis optio qui quisquam saepe sit
+                                        sunt totam vel velit voluptatibus? Adipisci ducimus expedita id nostrum quas quia!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
     </div>
 </div>
+<script src="https://unpkg.com/vue3-form-wizard"></script>
+<script src="https://unpkg.com/@vueup/vue-quill@1.2.0"></script>
+<style>
+    .loader,
+    .loader:after {
+        border-radius: 50%;
+        width: 10em;
+        height: 10em;
+    }
 
+    .loader {
+        margin: 60px auto;
+        font-size: 10px;
+        position: relative;
+        text-indent: -9999em;
+        border-top: 1.1em solid rgba(255, 255, 255, 0.2);
+        border-right: 1.1em solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
+        border-left: 1.1em solid #064E3B;
+        -webkit-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-animation: load8 1.1s infinite linear;
+        animation: load8 1.1s infinite linear;
+    }
+
+    @-webkit-keyframes load8 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes load8 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+</style>
 <script>
     const postJobApp = Vue.createApp({
         data() {
@@ -238,6 +188,9 @@
                 jobLocation: "",
                 skills: [],
                 qualifications: [],
+                isValid: false,
+                activeTab: 0,
+                loadingWizard: false
             }
         },
 
@@ -246,6 +199,9 @@
         },
 
         methods: {
+            setLoading: function(value) {
+                this.loadingWizard = value
+            },
 
             validateJobTitle() {
 
@@ -253,8 +209,72 @@
 
             getWorkType() {
 
+            },
+
+            validateBasic() {
+
+            },
+
+            changeMade(prevIndex, nextIndex) {
+                console.log('Previous: ' + prevIndex + ' Next: ' + nextIndex)
+
+            },
+
+            handleValidation(isValid, tabIndex) {
+                console.log('Tab: ' + tabIndex + ' valid: ' + isValid)
+                this.activeTab = tabIndex;
+            },
+
+            validateAsync() {
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+
+                        // if (this.previousTab < this.nextTab) {
+                        if (this.activeTab == 0) {
+                            if (this.jobTitle == "") {
+                                this.$toast.open({
+                                    message: "Title is required",
+                                    type: "error",
+                                    position: "top-left",
+                                    duration: 20000,
+                                    dismissible: true
+                                });
+                                resolve(false);
+                            }
+                        } else if (this.activeTab == 1) {
+
+                        }
+
+                        // }
+
+
+                    }, 1000)
+                })
+                // this.$emit('on-complete');
+                // return true;
+            },
+
+            validateBasicForm() {
+
+            },
+
+            validateForm(isValid, tabIndex) {
+                console.log('Tab: ' + tabIndex + ' valid: ' + isValid)
+            },
+
+
+
+            // When all validation is true
+            onComplete() {
+                alert("come home");
             }
         },
     });
+
+    postJobApp.component("FormWizard", Vue3FormWizard.FormWizard)
+    postJobApp.component("TabContent", Vue3FormWizard.TabContent)
+    postJobApp.use(VueToast.ToastPlugin);
+    postJobApp.component('QuillEditor', VueQuill.QuillEditor);
+    postJobApp.use(Vue3FormWizard)
     postJobApp.mount("#postjob")
 </script>

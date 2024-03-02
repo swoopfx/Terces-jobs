@@ -23,6 +23,12 @@ return [
         'template_path_stack' => [
             __DIR__ . '/../view',
         ],
+        'template_map' => [
+            'recruiter-layout'           => __DIR__ . '/../view/layout/recruiterLayout.phtml',
+            "recruiterPartial-basic-form-job-info" => __DIR__ . '/../view/partial/basic-form-job-info.phtml',
+            "recruiterPartial-job-description-form" => __DIR__ . '/../view/partial/job-description-form.phtml',
+            
+        ]
 
     ],
     'router' => [
@@ -51,7 +57,7 @@ return [
             'recruiter' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/recruiter[/:controller[/:interface[/:action[/:id]]]]',
+                    'route'    => '/recruit[/:controller[/:interface[/:action[/:id]]]]',
                     'constraints' => [
                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'interface' => '[a-zA-Z][a-zA-Z0-9_-]*',

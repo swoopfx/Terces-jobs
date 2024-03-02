@@ -3,6 +3,7 @@
 namespace General\Service;
 
 use Doctrine\ORM\EntityManager;
+use Elastic\Elasticsearch\Client;
 use Laminas\Authentication\AuthenticationService;
 use General\Entity\Settings;
 
@@ -77,6 +78,8 @@ class GeneralService
      */
     private $settings;
 
+    private Client $elasticClient;
+
 
 
     /**
@@ -147,6 +150,26 @@ class GeneralService
     public function setSettings($settings)
     {
         $this->settings = $settings;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of elasticClient
+     */
+    public function getElasticClient()
+    {
+        return $this->elasticClient;
+    }
+
+    /**
+     * Set the value of elasticClient
+     *
+     * @return  self
+     */
+    public function setElasticClient($elasticClient)
+    {
+        $this->elasticClient = $elasticClient;
 
         return $this;
     }
