@@ -354,7 +354,7 @@ use General\Service\GeneralService;
 
     <?= $this->content ?>
 
-
+   
 
     <footer class="relative bg-slate-900 dark:bg-slate-800">
         <div class="container">
@@ -462,7 +462,7 @@ use General\Service\GeneralService;
                 getCustomerLocation() {
 
                     axios.get("https://api.ipdata.co?api-key=639fe10fc4e7a411e874c00ad8b59be1fa07f4a08e29e1f89e0c36f6").then((result) => {
-                        console.log(result.data.country_code);
+                        // console.log(result.data.country_code);
                         this.location = result.data.flag;
                         const parentElement = document.getElementById("flag");
                         let flag = new CountryFlag(parentElement);

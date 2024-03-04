@@ -1,20 +1,102 @@
 <div class="row">
-    <div class="col-md-6">
-        <h4>Job Description</h4>
-        <div class="form-group form-control-material">
-            <quill-editor ref="myee" rows="5" contentType="html" theme="snow"></quill-editor>
+    <div class="col-md-12">
+
+
+        <div class="form-group">
+            <label>Tell us about the Role</label>
+            <quill-editor ref="vjDesc" rows="5" contentType="html" theme="snow"></quill-editor>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="form-group form-control-material">
-            <input type="email" class="form-control" id="exampleInputLastName" placeholder="Your last name">
-            <label for="exampleInputLastName">Last name</label>
-        </div>
-    </div>
+
 </div>
-<div class="form-group form-control-material static required">
-    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-    <label for="exampleInputEmail1">Email address</label>
+
+
+<hr>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group static required">
+            <label for="exampleInputEmail1">Add Skills</label>
+            <div class="row">
+                <div class="col-md-9 col-xs-9">
+                    <input @input="searchskills()" v-model="skillSearchParameter" type="" class="form-control" id="" placeholder="Search For skills">
+                </div>
+                <div class="col-md-3 col-xs-3"><button><i class="fa fa-plus"></i></button></div>
+            </div>
+            <div class="row">
+
+                <ul style="border: 0.5px solid grey" v-if="skillsearchResult.length" class="select2-results" role="listbox" id="select2-results-2">
+
+
+
+                    <li v-for="result in skillsearchResult" class="select2-results-dept-1 select2-result select2-result-selectable" role="presentation">
+                        <div class="select2-result-label" id="select2-result-label-15" role="option"><button @click="onSelectSkill({id: result.id, name: result.skill})" class="btn btn-block"><span class="select2-match"></span>{{result.skill}}</button></div>
+                    </li>
+
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="item">
+            <div v-show="selectedSkills.length" class="panel panel-default paper-shadow" data-z="0.5">
+                <div class="panel-heading">
+                    <div class="media v-middle">
+                        <div class="media-body">
+
+                            <p class="text-subhead text-light">Selected Skills</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table text-subhead v-middle">
+                        <thead>
+                            <th class="text-subhead  text-center" style="font-size: 10px;">Skill</th>
+                            <th class="text-subhead  text-center" style="font-size: 10px;">Skill Required</th>
+                            <th class="text-subhead  text-center" style="font-size: 10px;">Years of experience(min)</th>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(skill, index) in selectedSkills">
+                                <td class="width-100 text-caption">
+                                    <div class="label label-grey-200 label-xs">{{skill.name}}</div>
+                                </td>
+
+                                <td class="width-80 text-center"><a href="#"><input type="checkbox"></a></td>
+                                <td class="width-50 text-center"><input ref="skillMinYears"  type="text" class="form-control"></td>
+                                <td><button @click="onRemoveFromSelectedSkill(index)" class="btn btn-danger"><i class="fa fa-close"></i></button></td>
+                            </tr>
+                            <!-- <tr>
+                                <td class="width-100 text-caption">
+                                    <div class="label label-grey-200 label-xs">12 Jan 2015</div>
+                                </td>
+                                <td>Adrian Demian</td>
+                                <td class="width-80 text-center"><a href="#">#8981</a></td>
+                                <td class="width-50 text-center">&dollar;42</td>
+                            </tr>
+                            <tr>
+                                <td class="width-100 text-caption">
+                                    <div class="label label-grey-200 label-xs">12 Jan 2015</div>
+                                </td>
+                                <td>Adrian Demian</td>
+                                <td class="width-80 text-center"><a href="#">#11090</a></td>
+                                <td class="width-50 text-center">&dollar;42</td>
+                            </tr>
+                            <tr>
+                                <td class="width-100 text-caption">
+                                    <div class="label label-grey-200 label-xs">12 Jan 2015</div>
+                                </td>
+                                <td>Adrian Demian</td>
+                                <td class="width-80 text-center"><a href="#">#9805</a></td>
+                                <td class="width-50 text-center">&dollar;38</td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="form-group  static required">
 

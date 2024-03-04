@@ -62,7 +62,7 @@ return [
                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'interface' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id' => '[a-zA-Z0-9]*'
+                        'id' => '[a-zA-Z0-9_-]*'
                     ],
                     'defaults' => [
                         'controller' => RecruiterController::class,

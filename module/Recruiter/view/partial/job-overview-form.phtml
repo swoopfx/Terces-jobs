@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group ">
+            <label for="jobTitle">How did you hear about us </label>
+            <select style="width: 100%;" class="form-control" v-model="selectedWorkplaceType" data-placeholder="Select a Work place type" data-allow-clear="true">
+
+                <option v-for="place_type in workplaceTypes" :value="place_type.id">{{place_type.workplaceType}}</option>
+
+
+            </select>
+
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group ">
+            <label>Others (Provide info) </label>
+            <input type="text" class="form-control" id="jobTitle" ref="vOtherMarketing" placeholder="Job Title e.g Web Developer">
+        </div>
+    </div>
+</div>
+
+<hr>
+<div class="row">
+    <div class="col-md-6">
+        <div v-for="link in jobApplyLink" class="radio radio-primary">
+            <input @change="clickedApplyLink" v-model="selectedApplyLink" type="radio" name="applyLink" :id="link.id" :value="link.id">
+            <label :for="link.id">{{link.applyType}}</label>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div v-if="showcustomApplyLink" class="form-group ">
+            <label>{{applyLinkLabel}}</label>
+            <input type="text" class="form-control">
+        </div>
+    </div>
+</div>

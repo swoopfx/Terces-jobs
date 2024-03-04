@@ -51,19 +51,7 @@ class GeneralServiceFactory implements FactoryInterface
         } catch (\Throwable $th) {
             throw new \Exception("Could not connect to elasticsearch");
         }
-        // $indexed = $client->index([
-        //     'index' => 'children',
-        //     // 'type' => 'child',
-        //     'body' => [
-        //         'name' => "Segun",
-        //         'gender' => "male",
-        //         'age' => 23,
-        //         'complexion' => "white",
-        //         'attributes' => "Something"
-        //     ],
-        // ]);
-
-        // var_dump($client->info());
+       
 
         // $settings = $entityManager->find(Settings::class, 100);
         $settings = "";

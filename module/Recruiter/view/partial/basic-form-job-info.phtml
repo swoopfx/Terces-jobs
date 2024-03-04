@@ -1,20 +1,66 @@
 <div class="row">
     <div class="col-md-6">
-        <div class="form-group form-control-material">
-            <input type="text" class="form-control" id="jobTitle" ref="jobTitle" placeholder="Job Title e.g Web Developer">
-          <!--  <label for="jobTitle">Title of Job</label> -->
+        <div class="form-group ">
+            <label for="jobTitle">Title of Job</label>
+            <input type="text" class="form-control" id="jobTitle" ref="vJobTitle" placeholder="Job Title e.g Web Developer">
+
         </div>
     </div>
     <div class="col-md-6">
-        <div class="form-group form-control-material">
-            <input type="email" class="form-control" id="exampleInputLastName" placeholder="Your last name">
-            <label for="exampleInputLastName">Last name</label>
+        <div class="form-group ">
+            <label>Work Place Type </label>
+            <select style="width: 100%;" class="form-control" v-model="selectedWorkplaceType"  data-placeholder="Select a Work place type" data-allow-clear="true">
+
+                <option v-for="place_type in workplaceTypes" :value="place_type.id">{{place_type.workplaceType}}</option>
+
+
+            </select>
+
         </div>
     </div>
 </div>
-<div class="form-group form-control-material static required">
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group ">
+            <label for="jobTitle">Company</label>
+            <select style="width: 100%;" class="form-control" v-model="selectedCompany" data-placeholder="Select a Work place type" data-allow-clear="true">
+
+                <option v-for="place_type in workplaceTypes" :value="place_type.id">{{place_type.workplaceType}}</option>
+
+
+            </select>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label> Country </label>
+            <select style="width: 100%;" class="form-control" v-model="selectedCountry" data-placeholder="Select a Work place type" data-allow-clear="true">
+
+                <option v-for="type in jobTypes" :value="type.id"> <img src="https://flagcdn.com/w320/cy.png"> {{type.type}}</option>
+
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Job Type </label>
+            <select style="width: 100%;" class="form-control" v-model="seletedJobType" data-placeholder="Select a jobType" data-allow-clear="true">
+
+                <option v-for="type in jobTypes" :value="type.id">{{type.type}}</option>
+
+
+            </select>
+        </div>
+    </div>
+</div>
+<!--<div class="form-group  static required">
     <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
     <label for="exampleInputEmail1">Email address</label>
-</div>
+</div> -->
 
 <br>
