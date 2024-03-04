@@ -4,6 +4,7 @@ namespace Recruiter\Entity;
 
 use Authentication\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use General\Entity\JobApplyLinkType;
 use General\Entity\PostjobType;
 use General\Entity\PostJobWorkplaceType;
 use Recruiter\Entity\RecruiterCompany;
@@ -46,7 +47,7 @@ class RecruiterJob
 
     /**
      * Undocumented variable
-     * @ORM\ManyToOne
+     * @ORM\ManyToOne(targetEntity="RecruiterJobPosition")
      * @var RecruiterJobPosition
      */
     private RecruiterJobPosition $jobPosition;
@@ -75,7 +76,7 @@ class RecruiterJob
 
     /**
      * Undocumented variable
-     *
+     * @ORM\Column(type="datetime", nullable=true)
      * @var \DateTime
      */
     private \DateTime $createdOn;
@@ -83,7 +84,7 @@ class RecruiterJob
     /**
      * Undocumented variable
      * @ORM\Column(type="boolean", nullable=false, options={"default":"0"})
-     * @var boolean
+     * @var bool
      */
     private bool $isActive;
 
@@ -96,6 +97,7 @@ class RecruiterJob
 
     /**
      * Undocumented variable
+     * serailized dataset
      * @ORM\Column(type="text", nullable=true)
      * @var string
      */
@@ -103,10 +105,24 @@ class RecruiterJob
 
     /**
      * Undocumented variable
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      * @var \DateTime
      */
     private  \DateTime $updatedOn;
+
+    /**
+     * Undocumented variable
+     * @ORM\ManyToOne(targetEntity="General\Entity\JobApplyLinkType")
+     * @var JobApplyLinkType
+     */
+    private JobApplyLinkType $applyLinkType;
+
+    /**
+     * Undocumented variable
+     * @ORM\Column(name="external_link")
+     * @var string
+     */
+    private string $externalLink;
 
     public function __construct()
     {
@@ -238,6 +254,198 @@ class RecruiterJob
     public function setJobType(PostjobType $jobType)
     {
         $this->jobType = $jobType;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  RecruiterJobPosition
+     */
+    public function getJobPosition()
+    {
+        return $this->jobPosition;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  RecruiterJobPosition  $jobPosition  Undocumented variable
+     *
+     * @return  self
+     */
+    public function setJobPosition(RecruiterJobPosition $jobPosition)
+    {
+        $this->jobPosition = $jobPosition;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  PostJobWorkplaceType
+     */
+    public function getWorkplaceType()
+    {
+        return $this->workplaceType;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  PostJobWorkplaceType  $workplaceType  Undocumented variable
+     *
+     * @return  self
+     */
+    public function setWorkplaceType(PostJobWorkplaceType $workplaceType)
+    {
+        $this->workplaceType = $workplaceType;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  \DateTime
+     */
+    public function getCreatedOn()
+    {
+        return $this->createdOn;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  \DateTime  $createdOn  Undocumented variable
+     *
+     * @return  self
+     */
+    public function setCreatedOn(\DateTime $createdOn)
+    {
+        $this->createdOn = $createdOn;
+        $this->updatedOn = $createdOn;
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  bool
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  bool  $isActive  Undocumented variable
+     *
+     * @return  self
+     */
+    public function setIsActive(bool $isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  RecruiterCompany
+     */
+    public function getAssociatedCompany()
+    {
+        return $this->associatedCompany;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  RecruiterCompany  $associatedCompany  Undocumented variable
+     *
+     * @return  self
+     */
+    public function setAssociatedCompany(RecruiterCompany $associatedCompany)
+    {
+        $this->associatedCompany = $associatedCompany;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  string
+     */
+    public function getSkills()
+    {
+        return $this->skills;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  string  $skills  Undocumented variable
+     *
+     * @return  self
+     */
+    public function setSkills(string $skills)
+    {
+        $this->skills = $skills;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  \DateTime
+     */
+    public function getUpdatedOn()
+    {
+        return $this->updatedOn;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  \DateTime  $updatedOn  Undocumented variable
+     *
+     * @return  self
+     */
+    public function setUpdatedOn(\DateTime $updatedOn)
+    {
+        $this->updatedOn = $updatedOn;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  JobApplyLinkType
+     */
+    public function getApplyLinkType()
+    {
+        return $this->applyLinkType;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  JobApplyLinkType  $applyLinkType  Undocumented variable
+     *
+     * @return  self
+     */
+    public function setApplyLinkType(JobApplyLinkType $applyLinkType)
+    {
+        $this->applyLinkType = $applyLinkType;
 
         return $this;
     }

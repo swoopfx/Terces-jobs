@@ -14,8 +14,7 @@ class RecruiterServiceFactory implements FactoryInterface{
     {
         $xserv = new RecruiterService();
         $generalService = $container->get(GeneralService::class);
-        // $recruiterElastic = $container->get(BaseElastic::class);
-        // var_dump($recruiterElastic->getinfo());
+       
         return $xserv;
     }
 }

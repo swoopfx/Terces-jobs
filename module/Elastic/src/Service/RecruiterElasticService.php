@@ -2,7 +2,7 @@
 
 namespace Elastic\Service;
 
-use Elastic\Elasticsearch\Client;
+use Elasticsearch\Client;
 
 class RecruiterElasticService
 {
@@ -15,11 +15,14 @@ class RecruiterElasticService
     private Client $elasticClient;
 
 
-    public function createJobPosition()
+    public function createJobPosition($body)
     {
         // var_dump($this->elasticClient->info());
-        $elasticClienet = $this->elasticClient->healthReport();
-        return $elasticClienet;
+        $elasticClienet = $this->elasticClient;
+        // $elasticClienet->index([
+        //     // "index"=>
+        // ]);
+        // return $elasticClienet;
     }
 
 

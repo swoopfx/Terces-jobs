@@ -3,7 +3,7 @@
 namespace General\Service;
 
 use Doctrine\ORM\EntityManager;
-use Elastic\Elasticsearch\Client;
+use Elasticsearch\Client;
 use Laminas\Authentication\AuthenticationService;
 use General\Entity\Settings;
 

@@ -20,9 +20,7 @@ class RecruiterControllerFactory implements FactoryInterface
          */
         $generalService = $container->get(GeneralService::class);
         $ctr->setEntityManager($generalService->getEntityManager());
-        $recruiterElastic = $container->get(RecruiterElasticService::class);
-        // var_dump("BBBBBBBB");
-        var_dump($recruiterElastic->createJobPosition());
+
         return $ctr;
     }
 }
