@@ -18,6 +18,10 @@ class RecruiterService
     public function postjob(array $data)
     {
         return [];
+
+        // hydrate mysql 
+        // hydrate elastic 
+
     }
 
 

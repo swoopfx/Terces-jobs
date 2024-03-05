@@ -4,7 +4,9 @@ namespace Recruiter\Entity;
 
 use Authentication\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use General\Entity\ActiveJobCountry;
 use General\Entity\JobApplyLinkType;
+use General\Entity\Marketing;
 use General\Entity\PostjobType;
 use General\Entity\PostJobWorkplaceType;
 use Recruiter\Entity\RecruiterCompany;
@@ -51,6 +53,13 @@ class RecruiterJob
      * @var RecruiterJobPosition
      */
     private RecruiterJobPosition $jobPosition;
+
+    /**
+     * Undocumented variable
+     * @ORM\ManyToOne(targetEntity="General\Entity\ActiveJobCountry")
+     * @var ActiveJobCountry
+     */
+    private ActiveJobCountry $country;
 
 
     /**
@@ -119,10 +128,38 @@ class RecruiterJob
 
     /**
      * Undocumented variable
-     * @ORM\Column(name="external_link")
+     * @ORM\ManyToOne(targetEntity="General\Entity\Marketing")
+     * @var Marketing
+     */
+    private Marketing $marketing;
+
+    /**
+     * Dependent on JobApplyLinkType
+     * @ORM\Column(name="external_link", nullable=false)
      * @var string
      */
     private string $externalLink;
+
+    /**
+     * Undocumented variable
+     * @ORM\Column(nullable=true)
+     * @var string
+     */
+    private string $otherMarketing;
+
+    /**
+     * Undocumented variable
+     * @ORM\Column(nullable=true)
+     * @var string
+     */
+    private string $otherJobtype;
+
+    /**
+     * Undocumented variable
+     * @ORM\Column(type="text", nullable=true)
+     * @var string
+     */
+    private string $filterQuestions;
 
     public function __construct()
     {
@@ -446,6 +483,126 @@ class RecruiterJob
     public function setApplyLinkType(JobApplyLinkType $applyLinkType)
     {
         $this->applyLinkType = $applyLinkType;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  ActiveJobCountry
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  ActiveJobCountry  $country  Undocumented variable
+     *
+     * @return  self
+     */
+    public function setCountry(ActiveJobCountry $country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get dependent on JobApplyLinkType
+     *
+     * @return  string
+     */
+    public function getExternalLink()
+    {
+        return $this->externalLink;
+    }
+
+    /**
+     * Set dependent on JobApplyLinkType
+     *
+     * @param  string  $externalLink  Dependent on JobApplyLinkType
+     *
+     * @return  self
+     */
+    public function setExternalLink(string $externalLink)
+    {
+        $this->externalLink = $externalLink;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  string
+     */
+    public function getFilterQuestions()
+    {
+        return $this->filterQuestions;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  string  $filterQuestions  Undocumented variable
+     *
+     * @return  self
+     */
+    public function setFilterQuestions(string $filterQuestions)
+    {
+        $this->filterQuestions = $filterQuestions;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  Marketing
+     */
+    public function getMarketing()
+    {
+        return $this->marketing;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  Marketing  $marketing  Undocumented variable
+     *
+     * @return  self
+     */
+    public function setMarketing(Marketing $marketing)
+    {
+        $this->marketing = $marketing;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  string
+     */ 
+    public function getOtherMarketing()
+    {
+        return $this->otherMarketing;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  string  $otherMarketing  Undocumented variable
+     *
+     * @return  self
+     */ 
+    public function setOtherMarketing(string $otherMarketing)
+    {
+        $this->otherMarketing = $otherMarketing;
 
         return $this;
     }

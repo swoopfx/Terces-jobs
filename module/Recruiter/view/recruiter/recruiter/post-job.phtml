@@ -19,27 +19,6 @@
     </div>
 
 
-    <div class="parallax bg-white page-section third">
-        <div class="container parallax-layer" data-opacity="true">
-            <div class="media v-middle media-overflow-visible">
-                <div class="media-left">
-                    <span class="icon-block s30 bg-lightred"><i class="fa fa-github"></i></span>
-                </div>
-                <div class="media-body">
-                    <div class="text-headline">Github Webhooks for Beginners</div>
-                </div>
-                <div class="media-right">
-                    <div class="dropdown">
-                        <a class="btn btn-white dropdown-toggle" data-toggle="dropdown" href="#">Course <span class="caret"></span></a>
-                        <ul class="dropdown-menu pull-right">
-                            <li><a href="">Something</a></li>
-                            <li><a href="">Something else</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="container">
 
@@ -63,8 +42,8 @@
                                 <tab-content :before-change="validateAsync" title="Job Description">
                                     <?= $this->partial("recruiterPartial-job-description-form"); ?>
                                 </tab-content>
-                                <tab-content title="Overview">
-                                    Overview
+                                <tab-content :before-change="validateAsync" title="Overview">
+                                    <?= $this->partial("recruiterPartial-job-overview-form"); ?>
                                 </tab-content>
                                 <div class="loader" v-if="loadingWizard"></div>
                             </form-wizard>
@@ -94,7 +73,7 @@
                             </ul>
                         </div>
                     </div>
-
+                    <!--
                     <div class="panel panel-default" data-toggle="panel-collapse" data-open="true">
                         <div class="panel-heading panel-collapse-trigger">
                             <h4 class="panel-title">Instructor</h4>
@@ -117,7 +96,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
 
@@ -188,9 +167,12 @@
                 jobTypes: [],
                 jobApplyLink: [],
                 marketing: [],
+                jobScreeningQuestions: [],
+
                 showcustomApplyLink: false,
                 applyLinkLabel: "",
 
+                selectedJobScreeningQuestions: [],
                 selectedWorkplaceType: "",
                 seletedJobType: "",
                 selectedCompany: "",
@@ -199,10 +181,14 @@
                 selectedMarketing: "",
                 validationMessage: "",
                 isSearchSkills: false,
+                isMarketingOthers: false,
                 skillSearchParameter: "",
                 skillsearchResult: [],
-                selectedSkills: [],
+                selectedSkills: new Array(),
                 skillMinYears: 0,
+                positionSearchResult: [],
+                selectedPosition: "",
+                searchPositionParameter: "",
                 // End Presets
 
                 postjobs: [],
@@ -214,6 +200,7 @@
                 skills: [],
                 qualifications: [],
                 isValid: false,
+                isFormValid: false,
                 activeTab: 0,
                 loadingWizard: false
             }
@@ -224,6 +211,8 @@
             this.getworkplaceType();
             this.getJobType()
             this.getJobApplyLink();
+            this.getmarketing();
+            this.getJobScreeningQuestions();
         },
 
         methods: {
@@ -235,6 +224,20 @@
              */
             getUserCompany() {
 
+            },
+
+            getmarketing() {
+                axios.get("/recruit/recruiter/web/get-marketing").then((result) => {
+                    this.marketing = result.data.data;
+                }).catch((err) => {
+                    this.$toast.open({
+                        message: "Preload error",
+                        type: "error",
+                        position: "top-left",
+                        duration: 20000,
+                        dismissible: true
+                    });
+                });
             },
 
             /**
@@ -314,6 +317,22 @@
                     });
                 });
             },
+
+            getJobScreeningQuestions() {
+
+                axios.get("/recruit/recruiter/web/get-job-screening-quastions").then((result) => {
+                    this.jobScreeningQuestions = result.data.data;
+
+                }).catch((err) => {
+                    this.$toast.open({
+                        message: "Preload error",
+                        type: "error",
+                        position: "top-left",
+                        duration: 20000,
+                        dismissible: true
+                    });
+                });
+            },
             // End getters
 
 
@@ -325,6 +344,7 @@
                     return false;
                 } else if (this.selectedWorkplaceType == "") {
                     this.validationMessage = "Work Place Type is required";
+
                     return false;
                 } else if (this.selectedCompany == "") {
                     this.validationMessage = "Please select a Company "
@@ -343,13 +363,28 @@
             },
 
             validateJobDescription() {
-                if (this.$refs.vjDesc.value.length < 20) {
-                    this.validationMessage = "Please provide a lenghty description";
+                let quill = this.$refs.vjDesc.getQuill();
+                // console.log(quill);
+                // console.log(quill.root.innerText);
+                if (quill.root.innerText == "\n") {
+                    this.validationMessage = "Please provide a detailed description of this job ";
                     return false;
+                } else if (quill.root.innerText.length < 10) {
+                    this.validationMessage = "The description should be well detailed";
+                    return false;
+                } else if (this.selectedSkills.length < 1) {
+                    this.validationMessage = "Your are required to select a skill";
+                    return false;
+                } else {
+                    return true
                 }
                 // else if(){
 
                 // }
+
+            },
+
+            validateOverview() {
 
             },
             // end validation
@@ -359,8 +394,7 @@
             },
 
             searchskills() {
-                // this.isSearchSkills = true;
-                // console.log(this.skillSearchParameter);
+
                 if (this.skillSearchParameter.length > 0) {
                     axios.get("/recruit/recruiter/web/search-skills/" + this.skillSearchParameter).then(res => {
                         if (res.status == 200) {
@@ -392,33 +426,84 @@
                         dismissible: true
                     });
                 } else {
+                    dt.isRequired = false;
+                    dt.years = 0;
                     this.selectedSkills.push(dt);
-                    console.log(this.selectedSkills);
+                    // console.log(this.selectedSkills);
                 }
-
-
             },
 
             //used to extend the propery, identifiyin if skill is required
             onExtendSelectedSkillPropertyWithRequired(key, value) {
-                this.selectedSkills[key].required = value;
+                this.selectedSkills[key].isRequired = value;
             },
 
             //used to extend the propery, with minimum number of years
             onExtendSelectedSkillPropertyWithMinYears(e, key) {
-                console.log(e.target.value);
+                // console.log(e.target.value);
                 this.selectedSkills[key].years = e.target.value;
-                console.log(this.selectedSkills);
+                // console.log(this.selectedSkills);
             },
 
             // used to remove an object from a selected skill
             onRemoveFromSelectedSkill(inn) {
                 this.selectedSkills.splice(inn, 1);
-                console.log(this.selectedSkills);
+                // console.log(this.selectedSkills);
+            },
+
+            onChangeMarketing(e) {
+                // console.log(e.target.value);
+                if (e.target.value == 1000) {
+                    this.isMarketingOthers = true;
+                } else {
+                    this.isMarketingOthers = false;
+                }
+            },
+
+            onSelectJobScreeningQuestions(index, data) {
+                this.jobScreeningQuestions.splice(index, 1);
+                this.selectedJobScreeningQuestions.push(data);
+            },
+
+            onRemoveJobScreenQuestions(index, data) {
+                this.selectedJobScreeningQuestions.splice(index, 1);
+                this.jobScreeningQuestions.push(data);
             },
 
             selectSearchedSkills() {
 
+            },
+
+            onSearchPosition() {
+
+                if (this.searchPositionParameter.length > 3) {
+                    axios.get("/recruit/recruiter/web/search-job-position/" + this.searchPositionParameter).then(res => {
+                        if (res.status == 200) {
+                            this.positionSearchResult = res.data.data;
+                            // this.isSearchingCategory = false;
+                        }
+                    }).catch(() => {
+                        this.$toast.open({
+                            message: "Preload error",
+                            type: "error",
+                            position: "top-left",
+                            duration: 20000,
+                            dismissible: true
+                        });
+                    });
+                }
+
+            },
+
+            removeSelectedPosition() {
+                this.selectedPosition = "";
+                this.searchPositionParameter = "";
+            },
+
+            onSelectPosition(id) {
+                this.selectedPosition = id;
+                this.positionSearchResult = []
+                this.searchPositionParameter = "";
             },
 
             changeMade(prevIndex, nextIndex) {
@@ -427,8 +512,12 @@
             },
 
             handleValidation(isValid, tabIndex) {
-                // console.log('Tab: ' + tabIndex + ' valid: ' + isValid)
-                this.activeTab = tabIndex;
+                console.log('Tab: ' + tabIndex + ' valid: ' + isValid);
+                if (isValid) {
+                    this.activeTab = tabIndex + 1;
+                    // this.isFormValid = false;
+                }
+
             },
 
             validateAsync() {
@@ -438,27 +527,35 @@
                         // if (this.previousTab < this.nextTab) {
                         if (this.activeTab == 0) {
                             let validate = this.validateBasic();
-                            // if (validate == false) {
-                            //     this.$toast.open({
-                            //         message: this.validationMessage,
-                            //         type: "error",
-                            //         position: "top-left",
-                            //         duration: 20000,
-                            //         dismissible: true
-                            //     });
-                            //     resolve(false);
-                            // } else {
-                            //     resolve(true);
-                            // }
-                            resolve(true);
+                            if (validate == false) {
+                                this.$toast.open({
+                                    message: this.validationMessage,
+                                    type: "error",
+                                    position: "top-left",
+                                    duration: 20000,
+                                    dismissible: true
+                                });
+                                resolve(false);
+                            } else {
+                                resolve(true);
+                            }
+                            // resolve(true);
                         } else if (this.activeTab == 1) {
-
+                            let validate = this.validateJobDescription();
+                            if (validate == false) {
+                                this.$toast.open({
+                                    message: this.validationMessage,
+                                    type: "error",
+                                    position: "top-left",
+                                    duration: 20000,
+                                    dismissible: true
+                                });
+                                resolve(false);
+                            } else {
+                                resolve(true);
+                            }
                         }
-
-                        // }
-
-
-                    }, 1000)
+                    }, 500)
                 })
                 // this.$emit('on-complete');
                 // return true;
@@ -473,7 +570,36 @@
 
             // When all validation is true
             onComplete() {
-                alert("come home");
+                if (this.validateBasic() == true && this.validateJobDescription() == true && this.validateOverview() == true) {
+                    let formData = new FormData();
+                    let quill = this.$refs.myee.getQuill();
+                    let descHtml = quill.root.innerHTML;
+                    formData.append("jobTitle", this.jobTitle);
+                    formData.append("jobType", this.jobType);
+                    formData.append("associatedCompany", this.selectedCompany);
+                    formData.append("workplaceType", this.jobWorkplaceType);
+                    formData.append("country", this.selectedCountry);
+                    formData.append("jobDescription", JSON.stringify(descHtml));
+                    formData.append("jobPosition", this.selectedPosition);
+                    formData.append("skills", JSON.stringify(selectedSkills));
+                    formData.append("filterQuestions", this.jobScreeningQuestions);
+                    formData.append("marketing", this.marketing);
+                    formData.append("applyLink", this.jobApplyLink);
+
+                    axios.post("/recruit/recruiter/web/post-job", formData).then((result) => {
+                        if (result.status == 201) {
+                            window.location.href = "/recruit/recruiter/web/view-job/" + result.data.data.uuid
+                        }
+                    }).catch((err) => {
+                        Swal.fire({
+                            icon: "error",
+                            title: "error",
+                            text: err.response.data.messages
+                        });
+                    });
+                } else {
+
+                }
             },
 
             clickedApplyLink() {
