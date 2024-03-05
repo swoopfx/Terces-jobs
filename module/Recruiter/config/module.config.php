@@ -27,6 +27,7 @@ return [
             'recruiter-layout'           => __DIR__ . '/../view/layout/recruiterLayout.phtml',
             "recruiterPartial-basic-form-job-info" => __DIR__ . '/../view/partial/basic-form-job-info.phtml',
             "recruiterPartial-job-description-form" => __DIR__ . '/../view/partial/job-description-form.phtml',
+            "recruiterPartial-job-overview-form" => __DIR__ . '/../view/partial/job-overview-form.phtml',
             
         ]
 

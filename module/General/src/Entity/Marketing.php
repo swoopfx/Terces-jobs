@@ -7,6 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="marketing")
+ * Social Media
+ * Word of mouth
+ * Advert
+ * Search
  */
 class Marketing
 {

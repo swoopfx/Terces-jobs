@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6">
-        <div class="form-group ">
+        <div class="form-group">
             <label for="jobTitle">Title of Job</label>
             <input type="text" class="form-control" id="jobTitle" ref="vJobTitle" placeholder="Job Title e.g Web Developer">
 
@@ -9,7 +9,7 @@
     <div class="col-md-6">
         <div class="form-group ">
             <label>Work Place Type </label>
-            <select style="width: 100%;" class="form-control" v-model="selectedWorkplaceType"  data-placeholder="Select a Work place type" data-allow-clear="true">
+            <select style="width: 100%;" class="form-control" v-model="selectedWorkplaceType" data-placeholder="Select a Work place type" data-allow-clear="true">
 
                 <option v-for="place_type in workplaceTypes" :value="place_type.id">{{place_type.workplaceType}}</option>
 
@@ -45,7 +45,7 @@
 </div>
 
 <div class="row">
-    
+
     <div class="col-md-6">
         <div class="form-group">
             <label>Job Type </label>
@@ -56,6 +56,33 @@
 
             </select>
         </div>
+    </div>
+
+
+    <div class="col-md-6">
+
+        <div class="form-group">
+            <label for="position">Job Position </label>
+            <div v-if="selectedPosition != '' ">
+                <div class="row">
+                    <div class="col-md-9 col-xs-9">
+                        <button class="btn btn-white btn-block">{{selectedPosition.position}}</button>
+                    </div>
+                    <div class="col-md-3 col-xs-3"><i @click="removeSelectedPosition" class="fa fa-trash"></i></div>
+                </div>
+            </div>
+            <div v-else>
+                <!-- <input type="text" class="form-control" id="jobTitle" ref="vJobTitle" placeholder="Job Title e.g Web Developer"> -->
+                <input id="position" class="form-control" @input="onSearchPosition" v-model="searchPositionParameter" placeholder="Search for Position">
+            </div>
+        </div>
+
+        <ul style="border: 0.5px solid grey" v-if="positionSearchResult.length" class="select2-results" role="listbox" id="select2-results-2">
+            <li v-for="result in positionSearchResult" class="select2-results-dept-1 select2-result select2-result-selectable" role="presentation">
+                <div class="select2-result-label" id="select2-result-label-15" role="option"><button @click="onSelectPosition({id:result.id, position:result.position})" class="btn btn-white btn-block"><span class="select2-match"></span>{{result.position}}</button></div>
+            </li>
+        </ul>
+
     </div>
 </div>
 <!--<div class="form-group  static required">
