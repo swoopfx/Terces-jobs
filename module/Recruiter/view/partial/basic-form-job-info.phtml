@@ -35,11 +35,19 @@
     <div class="col-md-6">
         <div class="form-group">
             <label> Country </label>
-            <select style="width: 100%;" class="form-control" v-model="selectedCountry" data-placeholder="Select a Work place type" data-allow-clear="true">
+            <div class="row">
+                <div class="col-md-2 col-xs-2">
+                    <img  width="40" :src="selectedCountry.flag">
+                </div>
+                <div class="col-md-10 col-xs-10">
+                    <select style="width: 100%;" v-model="selectedCountry"  class="form-control"  data-placeholder="Select an active country" data-allow-clear="true">
 
-                <option v-for="type in jobTypes" :value="type.id"> <img src="https://flagcdn.com/w320/cy.png"> {{type.type}}</option>
+                        <option v-for="type in activeJobCountry" :value="{id:type.id, country:type.country, flag:type.flag}"> {{type.country}}</option>
 
-            </select>
+                    </select>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

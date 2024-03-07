@@ -14,7 +14,7 @@ use General\Service\GeneralService;
     <div class="col-md-6">
         <div v-if="showcustomApplyLink" class="form-group ">
             <label>{{applyLinkLabel}}</label>
-            <input type="text" class="form-control">
+            <input type="text" v-model="externalLink" class="form-control">
         </div>
     </div>
 </div>
@@ -35,7 +35,7 @@ use General\Service\GeneralService;
     <div v-if="isMarketingOthers" class="col-md-6">
         <div class="form-group ">
             <label>Others (Provide info) </label>
-            <input type="text" class="form-control" id="jobTitle" ref="vOtherMarketing" placeholder="Job Title e.g Web Developer">
+            <input type="text" class="form-control" id="jobTitle" v-model="vOtherMarketing" placeholder="Job Title e.g Web Developer">
         </div>
     </div>
 </div>

@@ -15,14 +15,30 @@ class RecruiterElasticService
     private Client $elasticClient;
 
 
-    public function createJobPosition($body)
+    const POSTED_JOB_INDEX = "posted_job";
+
+
+    public function createJob($body)
     {
         // var_dump($this->elasticClient->info());
         $elasticClienet = $this->elasticClient;
-        // $elasticClienet->index([
-        //     // "index"=>
-        // ]);
-        // return $elasticClienet;
+        $result = $elasticClienet->index([
+            "index" => self::POSTED_JOB_INDEX,
+            "id" => $body['uuid'],
+            "body" => $body
+        ]);
+        return $result;
+    }
+
+    public function createJobPosition($body)
+    {
+        $elasticClienet = $this->elasticClient;
+        $result = $elasticClienet->index([
+            "index" => "job_position",
+            "id" => $body['uuid'],
+            "body" => $body
+        ]);
+        return $result;
     }
 
 
