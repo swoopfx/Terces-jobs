@@ -27,7 +27,7 @@ class ActiveJobCountry
 
     /**
      * Undocumented variable
-     * @ORM\Column(nullable=true)
+     * @ORM\Column(nullable=true, type="text")
      * @var string
      */
     private $json;
@@ -139,7 +139,7 @@ class ActiveJobCountry
      * Get undocumented variable
      *
      * @return  string
-     */ 
+     */
     public function getJson()
     {
         return $this->json;
@@ -151,7 +151,7 @@ class ActiveJobCountry
      * @param  string  $json  Undocumented variable
      *
      * @return  self
-     */ 
+     */
     public function setJson(string $json)
     {
         $this->json = $json;

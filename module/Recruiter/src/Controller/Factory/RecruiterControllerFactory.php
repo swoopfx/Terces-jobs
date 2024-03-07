@@ -7,6 +7,7 @@ use Recruiter\Controller\RecruiterController;
 use General\Service\GeneralService;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
+use Recruiter\Service\RecruiterService;
 
 class RecruiterControllerFactory implements FactoryInterface
 {
@@ -19,7 +20,8 @@ class RecruiterControllerFactory implements FactoryInterface
          * @var GeneralService
          */
         $generalService = $container->get(GeneralService::class);
-        $ctr->setEntityManager($generalService->getEntityManager());
+        $ctr->setEntityManager($generalService->getEntityManager())
+        ->setRecruiterService($container->get(RecruiterService::class));
 
         return $ctr;
     }

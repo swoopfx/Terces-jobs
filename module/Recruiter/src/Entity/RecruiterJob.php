@@ -34,6 +34,13 @@ class RecruiterJob
 
     /**
      * Undocumented variable
+     * @ORM\Column(nullable=false, unique=true)
+     * @var string
+     */
+    private string $uuid;
+
+    /**
+     * Undocumented variable
      * @ORM\ManytoOne(targetEntity="Authentication\Entity\User")
      * @var User
      */
@@ -147,12 +154,7 @@ class RecruiterJob
      */
     private string $otherMarketing;
 
-    /**
-     * Undocumented variable
-     * @ORM\Column(nullable=true)
-     * @var string
-     */
-    private string $otherJobtype;
+   
 
     /**
      * Undocumented variable
@@ -587,7 +589,7 @@ class RecruiterJob
      * Get undocumented variable
      *
      * @return  string
-     */ 
+     */
     public function getOtherMarketing()
     {
         return $this->otherMarketing;
@@ -599,10 +601,34 @@ class RecruiterJob
      * @param  string  $otherMarketing  Undocumented variable
      *
      * @return  self
-     */ 
+     */
     public function setOtherMarketing(string $otherMarketing)
     {
         $this->otherMarketing = $otherMarketing;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  string
+     */ 
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  string  $uuid  Undocumented variable
+     *
+     * @return  self
+     */ 
+    public function setUuid(string $uuid)
+    {
+        $this->uuid = $uuid;
 
         return $this;
     }

@@ -168,7 +168,7 @@
                 jobApplyLink: [],
                 marketing: [],
                 jobScreeningQuestions: [],
-
+                activeJobCountry: [],
                 showcustomApplyLink: false,
                 applyLinkLabel: "",
 
@@ -189,6 +189,7 @@
                 positionSearchResult: [],
                 selectedPosition: "",
                 searchPositionParameter: "",
+                vOtherMarketing: "",
                 // End Presets
 
                 postjobs: [],
@@ -201,6 +202,7 @@
                 qualifications: [],
                 isValid: false,
                 isFormValid: false,
+                externalLink:false,
                 activeTab: 0,
                 loadingWizard: false
             }
@@ -213,6 +215,7 @@
             this.getJobApplyLink();
             this.getmarketing();
             this.getJobScreeningQuestions();
+            this.getCountries();
         },
 
         methods: {
@@ -226,6 +229,23 @@
 
             },
 
+            getCountries() {
+                axios.get("/recruit/recruiter/web/get-country").then((result) => {
+                    this.activeJobCountry = result.data.data;
+                }).catch((err) => {
+                    this.$toast.open({
+                        message: "Preload error",
+                        type: "error",
+                        position: "top-left",
+                        duration: 20000,
+                        dismissible: true
+                    });
+                });
+            },
+
+            /**
+             * get Marketing tools  where customer got information about the app
+             */
             getmarketing() {
                 axios.get("/recruit/recruiter/web/get-marketing").then((result) => {
                     this.marketing = result.data.data;
@@ -357,6 +377,8 @@
                     return false;
                 } else if (true) {
                     // validates if the user has enogh credit to make the call 
+
+                    return true;
                 } else {
                     return true;
                 }
@@ -385,7 +407,7 @@
             },
 
             validateOverview() {
-
+                return true;
             },
             // end validation
 
@@ -506,8 +528,13 @@
                 this.searchPositionParameter = "";
             },
 
+            // onSelectCountry(data) {
+            //     this.selectedCountry = data;
+            //     console.log(this.selectedCountry);
+            // },
+
             changeMade(prevIndex, nextIndex) {
-                // console.log('Previous: ' + prevIndex + ' Next: ' + nextIndex)
+                console.log('Previous: ' + prevIndex + ' Next: ' + nextIndex)
 
             },
 
@@ -554,6 +581,20 @@
                             } else {
                                 resolve(true);
                             }
+                        } else if (this.activeTab == 2) {
+                            let validate = this.validateOverview();
+                            if (validate == false) {
+                                this.$toast.open({
+                                    message: this.validationMessage,
+                                    type: "error",
+                                    position: "top-left",
+                                    duration: 20000,
+                                    dismissible: true
+                                });
+                                resolve(false);
+                            } else {
+                                resolve(true);
+                            }
                         }
                     }, 500)
                 })
@@ -570,21 +611,36 @@
 
             // When all validation is true
             onComplete() {
+                console.log("Got Here");
+                console.log(this.validateBasic());
+                console.log(this.validateJobDescription());
+                console.log(this.validateOverview());
                 if (this.validateBasic() == true && this.validateJobDescription() == true && this.validateOverview() == true) {
+
                     let formData = new FormData();
-                    let quill = this.$refs.myee.getQuill();
+                    let quill = this.$refs.vjDesc.getQuill();
+
                     let descHtml = quill.root.innerHTML;
-                    formData.append("jobTitle", this.jobTitle);
-                    formData.append("jobType", this.jobType);
+                  
+                    formData.append("jobTitle", this.$refs.vJobTitle.value);
+                   
+                    formData.append("jobType", this.seletedJobType);
+                  
                     formData.append("associatedCompany", this.selectedCompany);
-                    formData.append("workplaceType", this.jobWorkplaceType);
-                    formData.append("country", this.selectedCountry);
+                    formData.append("workplaceType", this.selectedWorkplaceType);
+                  
+                    formData.append("country", JSON.stringify(this.selectedCountry));
                     formData.append("jobDescription", JSON.stringify(descHtml));
-                    formData.append("jobPosition", this.selectedPosition);
-                    formData.append("skills", JSON.stringify(selectedSkills));
-                    formData.append("filterQuestions", this.jobScreeningQuestions);
-                    formData.append("marketing", this.marketing);
-                    formData.append("applyLink", this.jobApplyLink);
+                   
+                    formData.append("jobPosition", JSON.stringify(this.selectedPosition));
+                    
+                    formData.append("skills", JSON.stringify(this.selectedSkills));
+                    formData.append("filterQuestions", JSON.stringify(this.selectedJobScreeningQuestions));
+                    formData.append("marketing", this.selectedMarketing);
+                   
+                    formData.append("applyLink", this.selectedApplyLink);
+                    formData.append("externalLink", this.externalLink)
+                    formData.append("otherMarketing", this.vOtherMarketing);
 
                     axios.post("/recruit/recruiter/web/post-job", formData).then((result) => {
                         if (result.status == 201) {
@@ -598,7 +654,7 @@
                         });
                     });
                 } else {
-
+                    console.log("Not Valid");
                 }
             },
 

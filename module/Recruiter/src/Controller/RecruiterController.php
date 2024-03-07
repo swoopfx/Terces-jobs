@@ -15,6 +15,7 @@ use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\JsonModel;
 use Laminas\View\Model\ViewModel;
 use Recruiter\Entity\RecruiterJobPosition;
+use Recruiter\Service\RecruiterService;
 
 class RecruiterController extends AbstractActionController
 {
@@ -25,6 +26,13 @@ class RecruiterController extends AbstractActionController
      * @var EntityManager
      */
     private EntityManager $entityManager;
+
+    /**
+     * Undocumented variable
+     *
+     * @var RecruiterService
+     */
+    private RecruiterService $recruiterService;
 
 
     public function indexAction()
@@ -209,6 +217,8 @@ class RecruiterController extends AbstractActionController
                 )
             ));
 
+
+
             $inputFilter->add(array(
                 'name' => 'filterQuestions',
                 'required' => true,
@@ -233,14 +243,131 @@ class RecruiterController extends AbstractActionController
                 )
             ));
 
+            $inputFilter->add(array(
+                'name' => 'associatedCompany',
+                'required' => true,
+                'allow_empty' => false,
+                'filters' => array(
+                    // array(
+                    //     'name' => 'StripTags'
+                    // ),
+                    array(
+                        'name' => 'StringTrim'
+                    )
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'NotEmpty',
+                        'options' => array(
+                            'messages' => array(
+                                'isEmpty' => 'Active Country cannot be null'
+                            )
+                        )
+                    )
+                )
+            ));
+
+            $inputFilter->add(array(
+                'name' => 'applyLink',
+                'required' => true,
+                'allow_empty' => false,
+                'filters' => array(
+                    array(
+                        'name' => 'StripTags'
+                    ),
+                    array(
+                        'name' => 'StringTrim'
+                    )
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'NotEmpty',
+                        'options' => array(
+                            'messages' => array(
+                                'isEmpty' => 'Active Country cannot be null'
+                            )
+                        )
+                    )
+                )
+            ));
+
+            $inputFilter->add(array(
+                'name' => 'externalLink',
+                'required' => false,
+                'allow_empty' => true,
+                'filters' => array(
+                    array(
+                        'name' => 'StripTags'
+                    ),
+                    array(
+                        'name' => 'StringTrim'
+                    )
+                ),
+                'validators' => array(
+                    // array(
+                    //     'name' => 'NotEmpty',
+                    //     'options' => array(
+                    //         'messages' => array(
+                    //             'isEmpty' => 'Active Country cannot be null'
+                    //         )
+                    //     )
+                    // )
+                )
+            ));
+
+            $inputFilter->add(array(
+                'name' => 'marketing',
+                'required' => true,
+                'allow_empty' => false,
+                'filters' => array(
+                    array(
+                        'name' => 'StripTags'
+                    ),
+                    array(
+                        'name' => 'StringTrim'
+                    )
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'NotEmpty',
+                        'options' => array(
+                            'messages' => array(
+                                'isEmpty' => 'Please select how you got to know about us'
+                            )
+                        )
+                    )
+                )
+            ));
+
+            $inputFilter->add(array(
+                'name' => 'otherMarketing',
+                'required' => false,
+                'allow_empty' => true,
+                'filters' => array(
+                    // array(
+                    //     'name' => 'StripTags'
+                    // ),
+                    array(
+                        'name' => 'StringTrim'
+                    )
+                ),
+                'validators' => array(
+                    // array(
+                    //     'name' => 'NotEmpty',
+                    //     'options' => array(
+                    //         'messages' => array(
+                    //             'isEmpty' => 'Active Country cannot be null'
+                    //         )
+                    //     )
+                    // )
+                )
+            ));
+
 
             $inputFilter->setData($post);
             if ($inputFilter->isValid()) {
                 $data = $inputFilter->getValues();
                 try {
-                    //code...
-                    // htdrate into mysql 
-                    // hydrate into elastic;
                 } catch (\Throwable $th) {
                     $jsonModel->setVariables([
                         "success" => false,
@@ -399,6 +526,20 @@ class RecruiterController extends AbstractActionController
         return $jsonModel;
     }
 
+    public function getCountryAction()
+    {
+        $jsonModel = new JsonModel();
+        $em = $this->entityManager;
+        $data = $em->getRepository(ActiveJobCountry::class)->createQueryBuilder("j")
+            ->select(["j.id", "j.country", "j.flag"])
+            ->getQuery()
+            ->getArrayResult();
+        $jsonModel->setVariables([
+            'data' => $data
+        ]);
+        return $jsonModel;
+    }
+
     public function searchSkillsAction()
     {
 
@@ -433,6 +574,20 @@ class RecruiterController extends AbstractActionController
     public function setEntityManager(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
+
+        return $this;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  RecruiterService  $recruiterService  Undocumented variable
+     *
+     * @return  self
+     */ 
+    public function setRecruiterService(RecruiterService $recruiterService)
+    {
+        $this->recruiterService = $recruiterService;
 
         return $this;
     }
