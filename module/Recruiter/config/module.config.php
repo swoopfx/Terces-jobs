@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Laminas\Router\Http\Segment;
 use Recruiter\Controller\Factory\RecruiterControllerFactory;
 use Recruiter\Controller\RecruiterController;
+use Recruiter\Service\Factory\RecruiterServiceFactory;
+use Recruiter\Service\RecruiterService;
 
 return [
     'controllers' => [
@@ -28,7 +30,7 @@ return [
             "recruiterPartial-basic-form-job-info" => __DIR__ . '/../view/partial/basic-form-job-info.phtml',
             "recruiterPartial-job-description-form" => __DIR__ . '/../view/partial/job-description-form.phtml',
             "recruiterPartial-job-overview-form" => __DIR__ . '/../view/partial/job-overview-form.phtml',
-            
+
         ]
 
     ],
@@ -91,4 +93,9 @@ return [
             ]
         ]
     ],
+    "service_manager" => [
+        "factories" => [
+            RecruiterService::class => RecruiterServiceFactory::class
+        ]
+    ]
 ];

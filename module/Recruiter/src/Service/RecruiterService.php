@@ -100,7 +100,9 @@ class RecruiterService
 
             $em->flush();
             // hydrate elastic 
-            return [];
+            return [
+                "uuid" => $uuid
+            ];
         } catch (\Throwable $th) {
             throw new \Exception($th->getMessage());
         }

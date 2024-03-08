@@ -368,17 +368,28 @@ class RecruiterController extends AbstractActionController
             if ($inputFilter->isValid()) {
                 $data = $inputFilter->getValues();
                 try {
+                    $res =  $this->recruiterService->postjob($data);
+                    $response->setStatusCode(201);
+                    $jsonModel->setVariables([
+                        "data" => $res,
+                        "success" => true
+                    ]);
+                    return $jsonModel;
                 } catch (\Throwable $th) {
                     $jsonModel->setVariables([
                         "success" => false,
                         "messages" => $th->getMessage(),
                     ]);
+                    $response->setStatusCode(401);
+                    return $jsonModel;
                 }
             } else {
                 $jsonModel->setVariables([
                     "success" => false,
                     "message" => $inputFilter->getMessages()
                 ]);
+                $response->setStatusCode(401);
+                return $jsonModel;
             }
         }
         return $viewModel;
@@ -584,7 +595,7 @@ class RecruiterController extends AbstractActionController
      * @param  RecruiterService  $recruiterService  Undocumented variable
      *
      * @return  self
-     */ 
+     */
     public function setRecruiterService(RecruiterService $recruiterService)
     {
         $this->recruiterService = $recruiterService;
