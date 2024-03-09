@@ -243,29 +243,29 @@ class RecruiterController extends AbstractActionController
                 )
             ));
 
-            $inputFilter->add(array(
-                'name' => 'associatedCompany',
-                'required' => true,
-                'allow_empty' => false,
-                'filters' => array(
-                    // array(
-                    //     'name' => 'StripTags'
-                    // ),
-                    array(
-                        'name' => 'StringTrim'
-                    )
-                ),
-                'validators' => array(
-                    array(
-                        'name' => 'NotEmpty',
-                        'options' => array(
-                            'messages' => array(
-                                'isEmpty' => 'Active Country cannot be null'
-                            )
-                        )
-                    )
-                )
-            ));
+            // $inputFilter->add(array(
+            //     'name' => 'associatedCompany',
+            //     'required' => true,
+            //     'allow_empty' => false,
+            //     'filters' => array(
+            //         // array(
+            //         //     'name' => 'StripTags'
+            //         // ),
+            //         array(
+            //             'name' => 'StringTrim'
+            //         )
+            //     ),
+            //     'validators' => array(
+            //         array(
+            //             'name' => 'NotEmpty',
+            //             'options' => array(
+            //                 'messages' => array(
+            //                     'isEmpty' => 'Active Country cannot be null'
+            //                 )
+            //             )
+            //         )
+            //     )
+            // ));
 
             $inputFilter->add(array(
                 'name' => 'applyLink',

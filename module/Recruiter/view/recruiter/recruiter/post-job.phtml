@@ -172,6 +172,7 @@
                 showcustomApplyLink: false,
                 applyLinkLabel: "",
 
+
                 selectedJobScreeningQuestions: [],
                 selectedWorkplaceType: "",
                 seletedJobType: "",
@@ -202,7 +203,7 @@
                 qualifications: [],
                 isValid: false,
                 isFormValid: false,
-                externalLink:false,
+                externalLink: "",
                 activeTab: 0,
                 loadingWizard: false
             }
@@ -366,10 +367,12 @@
                     this.validationMessage = "Work Place Type is required";
 
                     return false;
-                } else if (this.selectedCompany == "") {
-                    this.validationMessage = "Please select a Company "
-                    return false;
-                } else if (this.seletedJobType == "") {
+                }
+                //  else if (this.selectedCompany == "") {
+                //     this.validationMessage = "Please select a Company "
+                //     return false;
+                // } 
+                else if (this.seletedJobType == "") {
                     this.validationMessage = "Please select a Job Type "
                     return false;
                 } else if (this.selectedCountry == "") {
@@ -621,23 +624,23 @@
                     let quill = this.$refs.vjDesc.getQuill();
 
                     let descHtml = quill.root.innerHTML;
-                  
+
                     formData.append("jobTitle", this.$refs.vJobTitle.value);
-                   
+
                     formData.append("jobType", this.seletedJobType);
-                  
+
                     formData.append("associatedCompany", this.selectedCompany);
                     formData.append("workplaceType", this.selectedWorkplaceType);
-                  
+
                     formData.append("country", JSON.stringify(this.selectedCountry));
                     formData.append("jobDescription", JSON.stringify(descHtml));
-                   
+
                     formData.append("jobPosition", JSON.stringify(this.selectedPosition));
-                    
+
                     formData.append("skills", JSON.stringify(this.selectedSkills));
                     formData.append("filterQuestions", JSON.stringify(this.selectedJobScreeningQuestions));
                     formData.append("marketing", this.selectedMarketing);
-                   
+                    // console.log(this.selectedApplyLink);
                     formData.append("applyLink", this.selectedApplyLink);
                     formData.append("externalLink", this.externalLink)
                     formData.append("otherMarketing", this.vOtherMarketing);

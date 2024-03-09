@@ -37,6 +37,7 @@ class GeneralServiceFactory implements FactoryInterface
 
                 ->build();
 
+            // $client = ClientBuilder::create()->setElasticCloudId("https://982bfd03a2f94a0e825ccbe5ab70f9cf.us-central1.gcp.cloud.es.io:443")->setApiKey("a70ef86a27bd4b6a9062ea8ab3e85176:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvJDk4MmJmZDAzYTJmOTRhMGU4MjVjY2JlNWFiNzBmOWNmJDQzYWE2NjE5YzNlZTRjN2I5NWRhYzQxNWM5ZTViYjZl", "Q19GMUhvNEJMM2tQUzhGNnpKLXE6MnFNWFgwbWZSREdjUFJDSDJ4S0QtQQ==")->build();
             // if ($elasticConfig["is_cloud"]) {
             //     if ($elasticConfig["cloud_auth_type"]["api_auth"]) {
             //         $client = ClientBuilder::create()->setElasticCloudId($elasticConfig["cloud_auth_type"]["cloud_id"])
@@ -51,7 +52,7 @@ class GeneralServiceFactory implements FactoryInterface
         } catch (\Throwable $th) {
             throw new \Exception("Could not connect to elasticsearch");
         }
-       
+
 
         // $settings = $entityManager->find(Settings::class, 100);
         $settings = "";

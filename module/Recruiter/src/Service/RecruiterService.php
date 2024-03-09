@@ -48,9 +48,9 @@ class RecruiterService
             /**
              * @var RecruiterCompany
              */
-            $company = $em->find(RecruiterCompany::class, $data["associatedCompany"]);
+            // $company = $em->find(RecruiterCompany::class, $data["associatedCompany"]);
             $jobType = $em->find(PostjobType::class, $data["jobType"]);
-            $workPlaceType = $em->find(PostJobWorkplaceType::class, "workplaceType");
+            $workPlaceType = $em->find(PostJobWorkplaceType::class, $data["workplaceType"]);
             // $jobPosition = $em->find(RecruiterJobPosition::class, )
             $jobPositionObject = json_decode($data["jobPosition"], true);
             $jobPositionEntity = $em->find(RecruiterJobPosition::class, $jobPositionObject["id"]);
@@ -64,8 +64,8 @@ class RecruiterService
             $em = $this->entityManager;
 
             $jobEntity->setJobTitle($data["jobTitle"])
-                ->setAssociatedCompany($company)
-                ->setPoster($this->auth)
+                // ->setAssociatedCompany($company)
+                ->setPoster($this->auth->getIdentity())
                 ->setJobDescription($data["jobDescription"])
                 ->setCountry($countryEntity)
                 ->setWorkplaceType($workPlaceType)
@@ -81,12 +81,14 @@ class RecruiterService
                 ->setJobType($jobType);
             $em->persist($jobEntity);
 
+            // var_dump($skillsString);
+
             // hydrate mysql 
             $elasticParams = [
                 "uuid" => $uuid,
                 "job_title" => $data["jobTitle"],
-                "poster" => $this->auth->getId(),
-                "company_name" => $company->getCompanyName(),
+                "poster" => $this->auth->getIdentity()->getId(),
+                "company_name" => "", //$company->getCompanyName(),
                 "work_place_type" => $workPlaceType->getWorkplaceType(),
                 "job_type" => $jobType->getType(),
                 "country" => $countryEntity->getCountry(),
@@ -96,7 +98,7 @@ class RecruiterService
                 "tags" => $skillsString . " " . $data["jobTitle"],
                 "datetime" => ""
             ];
-            $this->recruiterElastic->createJob($elasticParams);
+            // $this->recruiterElastic->createJob($elasticParams);
 
             $em->flush();
             // hydrate elastic 
