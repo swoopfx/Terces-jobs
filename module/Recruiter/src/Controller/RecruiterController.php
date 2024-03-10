@@ -14,6 +14,7 @@ use Laminas\InputFilter\InputFilter;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\JsonModel;
 use Laminas\View\Model\ViewModel;
+use Recruiter\Entity\RecruiterJob;
 use Recruiter\Entity\RecruiterJobPosition;
 use Recruiter\Service\RecruiterService;
 
@@ -399,10 +400,16 @@ class RecruiterController extends AbstractActionController
     {
         $viewModel = new ViewModel();
         $id = $this->params()->fromRoute("id", NULL);
+        $em = $this->entityManager;
         if ($id == NULL) {
             // redirect to another post job page
             $this->redirect()->toRoute("recruiter", ["action" => "post-job"]);
         }
+        $data = $em->getRepository(RecruiterJob::class)->findOneBy([
+            "uuid" => $id
+        ]);
+        $viewModel->setVariable("data", $data);
+
         return $viewModel;
     }
 

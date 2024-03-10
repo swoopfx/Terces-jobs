@@ -30,6 +30,7 @@ return [
             "recruiterPartial-basic-form-job-info" => __DIR__ . '/../view/partial/basic-form-job-info.phtml',
             "recruiterPartial-job-description-form" => __DIR__ . '/../view/partial/job-description-form.phtml',
             "recruiterPartial-job-overview-form" => __DIR__ . '/../view/partial/job-overview-form.phtml',
+            "recruiter-job-menu" => __DIR__ . '/../view/partial/recruiter-job-menu.phtml',
 
         ]
 

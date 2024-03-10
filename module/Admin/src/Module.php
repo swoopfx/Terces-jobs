@@ -47,19 +47,19 @@ class Module
         
 
         // var_dump( $routeMatch->getMatchedRouteName());
-        // if ($routeMatch->getMatchedRouteName() == "admin") {
-        //     if (!$authService->hasIdentity()) {
-        //         $cont->refer = "/admin";
-        //         $response->setStatusCode(301);
-        //         // $referContainer->location = $request->getUriString();
-        //         $controller = $e->getTarget();
-        //         $uri = $request->getUri();
-        //         $fullLink = sprintf('%s://%s', $uri->getScheme(), $uri->getHost());
+        if ($routeMatch->getMatchedRouteName() == "admin") {
+            if (!$authService->hasIdentity()) {
+                $cont->refer = "/admin";
+                $response->setStatusCode(301);
+                // $referContainer->location = $request->getUriString();
+                $controller = $e->getTarget();
+                $uri = $request->getUri();
+                $fullLink = sprintf('%s://%s', $uri->getScheme(), $uri->getHost());
 
-        //         $response->getHeaders()->addHeaderLine('Location', $fullLink . "/login");
+                $response->getHeaders()->addHeaderLine('Location', $fullLink . "/auth/admin");
 
-        //         // $e->stopPropagation();
-        //     }
-        // }
+                // $e->stopPropagation();
+            }
+        }
     }
 }

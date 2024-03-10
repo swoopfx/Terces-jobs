@@ -59,6 +59,21 @@ return [
                 ],
             ],
 
+            'auth-admin' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/auth/admin',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        // 'id' => '[a-zA-Z0-9]*'
+                    ],
+                    'defaults' => [
+                        'controller' => AuthController::class,
+                        'action'     => 'alogin',
+                    ],
+                ],
+            ],
+
             'register' => [
                 'type'    => Literal::class,
                 'options' => [

@@ -180,7 +180,12 @@ if (isset($_GET["exx"]) && $_GET["exx"] == "err") {
                                 icon: "success",
                                 title: "Successfully Logged in",
                                 text: "Redirecting"
+                            }).then((result) => {
+                                window.location.href = result.data.redirect;
+                            }).catch((err) => {
+
                             });
+                            window.location.href = result.data.redirect;
                             this.isSubmitting = false;
                         }
                     }).catch((err) => {

@@ -4,10 +4,10 @@
     <div class="parallax-layer container" data-opacity="true">
         <div class="media v-middle">
             <div class="media-left">
-                <span class="icon-block s60 bg-lightred"><i class="fa fa-github"></i></span>
+                <span class="icon-block s60 bg-lightred"><i class="fa fa-solid fa-briefcase"></i></span>
             </div>
             <div class="media-body">
-                <h1 class="text-display-1 margin-none">Github Webhooks for Beginners</h1>
+                <h1 class="text-display-1 margin-none"><?= $data->getJobTitle() ?></h1>
                 <p class="small margin-none">
                     <span class="fa fa-fw fa-star text-yellow-800"></span>
                     <span class="fa fa-fw fa-star text-yellow-800"></span>
@@ -30,33 +30,21 @@
             <div class="page-section">
                 <div class="width-350 width-300-md width-100pc-xs paragraph-inline">
                     <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="//www.youtube-nocookie.com/embed/Ycv5fNd4AeM?rel=0"></iframe>
+                       <img src="/img/no.png" width="300">
                     </div>
                 </div>
-                <p>
-                    <strong>Lorem ipsum</strong> dolor sit amet, consectetur adipisicing elit. Ad aperiam autem cumque deleniti dicta iusto laboriosam laudantium omnis, possimus praesentium provident quam quas, sapiente sint, ut! Adipisci aliquid assumenda consequuntur
-                    cupiditate deleniti dicta dolore dolorem
-                    <strong>dolores enim </strong>eos hic illo inventore iure libero magnam minima minus obcaecati optio pariatur porro quibusdam quos reiciendis, sapiente sint veritatis. Eveniet in magni sunt?
-                </p>
-                <p>
-                    <strong>Lorem ipsum</strong> dolor sit amet, consectetur adipisicing elit. Ad aperiam autem cumque deleniti dicta iusto laboriosam laudantium omnis, possimus praesentium provident quam quas, sapiente sint, ut! Adipisci aliquid assumenda consequuntur
-                    cupiditate deleniti dicta dolore dolorem
-                    <strong>dolores enim </strong>eos hic illo inventore iure libero.
-                </p>
-                <br />
-                <p>
-                    <strong>Lorem ipsum</strong> dolor sit amet, consectetur adipisicing elit. Ad aperiam autem cumque deleniti dicta iusto laboriosam laudantium omnis, possimus praesentium provident quam quas, sapiente sint, ut! Adipisci aliquid assumenda consequuntur
-                    cupiditate deleniti dicta dolore dolorem
-                    <strong>dolores enim </strong>eos hic illo inventore iure libero magnam minima minus obcaecati optio pariatur porro quibusdam quos reiciendis, sapiente sint veritatis. Eveniet in magni sunt?
-                </p>
+                <?= substr($data->getJobDescription(), 1, -1) ?>
+
                 <br />
                 <p class="margin-none">
-                    <span class="label bg-gray-dark">New</span>
-                    <span class="label label-grey-200">WordPress</span>
-                    <span class="label label-grey-200">Beginner</span>
+                    <?php $skills = json_decode($data->getSkills(), true);  ?>
+                    <?php foreach ($skills as $skill) : ?>
+                        <span class="label bg-gray-dark"> <?= $skill["name"] ?></span>
+                    <?php endforeach; ?>
+
                 </p>
             </div>
-
+            <!--
             <div class="page-section">
                 <div class="row">
                     <div class="col-md-7">
@@ -244,16 +232,18 @@
                 </div>
 
             </div>
+                    -->
 
         </div>
         <div class="col-lg-3 col-md-4">
+            <?= $this->partial("recruiter-job-menu") ?>
 
             <div class="page-section">
 
                 <!-- .panel -->
                 <div class="panel panel-default paper-shadow" data-z="0.5" data-hover-z="1" data-animated>
                     <div class="panel-heading">
-                        <h4 class="text-headline">Course</h4>
+                        <h4 class="text-headline">Job Details</h4>
                     </div>
                     <div class="panel-body">
                         <p class="text-caption">
@@ -269,7 +259,8 @@
                     </div>
                     <hr class="margin-none" />
                     <div class="panel-body text-center">
-                        <p><a class="btn btn-success btn-lg paper-shadow relative" data-z="1" data-hover-z="2" data-animated href="website-take-course.html">Start Course</a></p>
+                        <p><a class="btn btn-success btn-block btn-lg paper-shadow relative" data-z="1" data-hover-z="2" data-animated href="website-take-course.html">Edit Job</a></p>
+                        <p><a class="btn btn-danger btn-block btn-lg paper-shadow relative" data-z="1" data-hover-z="2" data-animated href="website-take-course.html">Close Job</a></p>
                         <p class="text-body-2">or <a href="#">buy course for $1</a></p>
                     </div>
                     <ul class="list-group">
@@ -313,7 +304,7 @@
     </div>
 
 </div>
-
+<!--
 <div class="bg-white page-section">
     <div class="container">
         <h4>Featured</h4>
@@ -518,4 +509,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

@@ -41,7 +41,7 @@ return [
                     'defaults' => [
                         'controller' => AdminController::class,
                         "interface" => "web",
-                        'action'     => 'login',
+                        'action'     => 'dashboard',
                         'id' => '[a-zA-Z0-9]*'
                     ],
                 ],

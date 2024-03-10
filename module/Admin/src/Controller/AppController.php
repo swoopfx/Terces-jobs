@@ -209,6 +209,7 @@ class AppController extends AbstractActionController
                         ->setUploader($userEntity)->setTitle($data["title"])
                         ->setReferenceImage($image)
                         ->setContent($data["content"])
+                        ->setIsPublished(filter_var($data["isPublished"], FILTER_VALIDATE_BOOL))
                         ->setCategory($em->find(NewsletterCategory::class, $data["category"]));
 
                     $em->persist($newsletterEntity);
@@ -497,7 +498,7 @@ class AppController extends AbstractActionController
                 }
             }
         }
-       
+
         return $viewModel;
     }
 
