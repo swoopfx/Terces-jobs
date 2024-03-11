@@ -154,7 +154,7 @@ class RecruiterJob
      */
     private string $otherMarketing;
 
-   
+
 
     /**
      * Undocumented variable
@@ -162,6 +162,33 @@ class RecruiterJob
      * @var string
      */
     private string $filterQuestions;
+
+    /**
+     * Undocumented variable
+     * @ORM\Column(type="boolean", nullable=false, options={"default":0})
+     * @var boolean
+     */
+    private bool $isAcceptTerms;
+
+    /**
+     * Undocumented variable
+     * @ORM\Column(type="boolean", nullable=false, options={"default":0})
+     * @var boolean
+     */
+    private bool $isFeatured;
+
+    /**
+     * Undocumented variable
+     * @ORM\Column(type="string", nullable=false, options={"default":0})
+     * @var string
+     */
+    private string $minimumPay;
+    /**
+     * Undocumented variable
+     * @ORM\Column(type="string", nullable=false, options={"default":0})
+     * @var string
+     */
+    private string  $maximumPay;
 
     public function __construct()
     {
@@ -613,7 +640,7 @@ class RecruiterJob
      * Get undocumented variable
      *
      * @return  string
-     */ 
+     */
     public function getUuid()
     {
         return $this->uuid;
@@ -625,7 +652,7 @@ class RecruiterJob
      * @param  string  $uuid  Undocumented variable
      *
      * @return  self
-     */ 
+     */
     public function setUuid(string $uuid)
     {
         $this->uuid = $uuid;

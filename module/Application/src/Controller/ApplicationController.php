@@ -115,12 +115,10 @@ class ApplicationController extends AbstractActionController
     public function recruitersBlogAction()
     {
         $viewModel = new ViewModel();
-        $userId = $this->params()->fromRoute("id", NULL);
+       
 
         try {
-            if ($userId == NULL) {
-                throw new \Exception("Invalid user identity");
-            }
+           
             $order = ($this->params()->fromQuery("order", NULL) == null ? "DESC" : "ASC");
             $pageCount = ($this->params()->fromQuery("page_count", GeneralService::MAX_PAGE_COUNT) > 100 ? 100 : $this->params()->fromQuery("page_count", GeneralService::MAX_PAGE_COUNT));
             $orderBy = $this->params()->fromQuery("order_by", "id");
@@ -164,10 +162,10 @@ class ApplicationController extends AbstractActionController
             ]);
         } catch (\Throwable $th) {
 
-            // var_dump($th->getTrace());
-            $this->flashMessenger()->addErrorMessage("Something went wrong");
-            $url = $this->getRequest()->getHeader('Referer')->getUri();
-            return $this->redirect()->toUrl($url);
+            var_dump($th->getTraceAsString());
+            // $this->flashMessenger()->addErrorMessage("Something went wrong");
+            // $url = $this->getRequest()->getHeader('Referer')->getUri();
+            // return $this->redirect()->toUrl($url);
         }
         return $viewModel;
     }

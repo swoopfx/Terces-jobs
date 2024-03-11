@@ -2,76 +2,81 @@
 
 use General\Service\GeneralService;
 
-echo $this->headtitle("Newsletter Details");
-$this->headMeta($data->getTitle() ?? GeneralService::APP_DESCRIPTION, "description");
-$this->headMeta($data->getTitle() . GeneralService::APP_KEYWORDS ?? GeneralService::APP_KEYWORDS, "keywords");
+if ($data != NULL) :
+    echo $this->headtitle("Newsletter Details");
+    $this->headMeta($data->getTitle() ?? GeneralService::APP_DESCRIPTION, "description");
+    $this->headMeta($data->getTitle() . GeneralService::APP_KEYWORDS ?? GeneralService::APP_KEYWORDS, "keywords");
+
 ?>
 
 
-<section class="relative table w-full py-36 bg-[url('/assets/images/hero/bg.jpg')] bg-top bg-no-repeat bg-cover">
-    <div class="absolute inset-0 bg-emerald-900/90"></div>
-    <div class="container">
-        <div class="grid grid-cols-1 text-center mt-10">
-            <h3 class="md:text-3xl text-2xl md:leading-snug tracking-wide leading-snug font-medium text-white mb-3"><?= $data->getTitle();  ?></h3>
+    <section class="relative table w-full py-36 bg-[url('/assets/images/hero/bg.jpg')] bg-top bg-no-repeat bg-cover">
+        <div class="absolute inset-0 bg-emerald-900/90"></div>
+        <div class="container">
+            <div class="grid grid-cols-1 text-center mt-10">
+                <h3 class="md:text-3xl text-2xl md:leading-snug tracking-wide leading-snug font-medium text-white mb-3"><?= $data->getTitle();  ?></h3>
 
-            <ul class="list-none mt-6">
-                <li class="inline-block text-white/50 mx-5"> <span class="text-white block">Author :</span> <span class="block"><?= $data->getUploader()->getFullname() ?></span></li>
-                <li class="inline-block text-white/50 mx-5"> <span class="text-white block">Date :</span> <span class="block"><?= $this->dateformat($data->getCreatedOn(), IntlDateFormatter::RELATIVE_LONG, IntlDateFormatter::NONE) ?></span></li>
-                <li class="inline-block text-white/50 mx-5"> <span class="text-white block">Time :</span> <span class="block">5 Min Read</span></li>
+                <ul class="list-none mt-6">
+                    <li class="inline-block text-white/50 mx-5"> <span class="text-white block">Author :</span> <span class="block"><?= $data->getUploader()->getFullname() ?></span></li>
+                    <li class="inline-block text-white/50 mx-5"> <span class="text-white block">Date :</span> <span class="block"><?= $this->dateformat($data->getCreatedOn(), IntlDateFormatter::RELATIVE_LONG, IntlDateFormatter::NONE) ?></span></li>
+                    <li class="inline-block text-white/50 mx-5"> <span class="text-white block">Time :</span> <span class="block">5 Min Read</span></li>
+                </ul>
+            </div><!--end grid-->
+        </div><!--end container-->
+
+        <div class="absolute text-center z-10 bottom-5 start-0 end-0 mx-3">
+            <ul class="breadcrumb tracking-[0.5px] breadcrumb-light mb-0 inline-block">
+                <li class="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white/50 hover:text-white"><a href="#"><?= GeneralService::APP_NAME ?></a></li>
+                <li class="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white/50 hover:text-white"><a href="">Blogs</a></li>
+                <li class="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white" aria-current="page">Single</li>
             </ul>
-        </div><!--end grid-->
-    </div><!--end container-->
-
-    <div class="absolute text-center z-10 bottom-5 start-0 end-0 mx-3">
-        <ul class="breadcrumb tracking-[0.5px] breadcrumb-light mb-0 inline-block">
-            <li class="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white/50 hover:text-white"><a href="#"><?= GeneralService::APP_NAME ?></a></li>
-            <li class="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white/50 hover:text-white"><a href="">Blogs</a></li>
-            <li class="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white" aria-current="page">Single</li>
-        </ul>
+        </div>
+    </section><!--end section-->
+    <div class="relative">
+        <div class="shape absolute start-0 end-0 sm:-bottom-px -bottom-[2px] overflow-hidden z-1 text-white dark:text-slate-900">
+            <svg class="w-full h-auto" viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+            </svg>
+        </div>
     </div>
-</section><!--end section-->
-<div class="relative">
-    <div class="shape absolute start-0 end-0 sm:-bottom-px -bottom-[2px] overflow-hidden z-1 text-white dark:text-slate-900">
-        <svg class="w-full h-auto" viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
-        </svg>
-    </div>
-</div>
-<!-- End Hero -->
+    <!-- End Hero -->
 
-<section class="relative md:py-24 py-16">
-    <div class="container">
-        <div class="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
-            <div class="lg:col-span-8 md:col-span-6">
-                <div class="relative overflow-hidden rounded-md shadow dark:shadow-gray-800">
+    <section class="relative md:py-24 py-16">
+        <div class="container">
+            <div class="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
+                <div class="lg:col-span-8 md:col-span-6">
+                <img width="300" src="<?= $data->getReferenceImage()->getImageUrl() ?>" alt="">
+                    <div class="relative overflow-hidden rounded-md shadow dark:shadow-gray-800">
 
-                    <img src="<?= $data->getReferenceImage()->getImageUrl() ?>" alt="">
-
-                    <div class="p-6">
-                        <?= substr($data->getContent(), 1, -1); ?>
+                        <div class="p-6">
+                            
+                            <br>
+                            <article class="prose text-slate-400">
+                                <?= substr($data->getContent(), 1, -1); ?>
+                            </article>
+                        </div>
                     </div>
+
+
                 </div>
 
+                <div class="lg:col-span-4 md:col-span-6">
+                    <div class="sticky top-20">
+                        <h5 class="text-lg font-medium bg-gray-50 dark:bg-slate-800 shadow dark:shadow-gray-800 rounded-md p-2 text-center">Author</h5>
+                        <div class="text-center mt-8">
+                            <img src="assets/images/team/05.jpg" class="h-20 w-20 mx-auto rounded-full shadow mb-4" alt="">
 
-            </div>
+                            <a href="" class="text-lg font-medium hover:text-emerald-600 transition-all duration-500 ease-in-out h5"><?= $data->getUploader()->getFullname() ?></a>
+                            <p class="text-slate-400">Content Writer</p>
+                        </div>
 
-            <div class="lg:col-span-4 md:col-span-6">
-                <div class="sticky top-20">
-                    <h5 class="text-lg font-medium bg-gray-50 dark:bg-slate-800 shadow dark:shadow-gray-800 rounded-md p-2 text-center">Author</h5>
-                    <div class="text-center mt-8">
-                        <img src="assets/images/team/05.jpg" class="h-20 w-20 mx-auto rounded-full shadow mb-4" alt="">
 
-                        <a href="" class="text-lg font-medium hover:text-emerald-600 transition-all duration-500 ease-in-out h5"><?= $data->getUploader()->getFullname() ?></a>
-                        <p class="text-slate-400">Content Writer</p>
                     </div>
-
-
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- <div class="container lg:mt-24 mt-16">
+        <!-- <div class="container lg:mt-24 mt-16">
         <div class="grid grid-cols-1 pb-8 text-center">
             <h3 class="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">Related Blogs</h3>
 
@@ -163,4 +168,9 @@ $this->headMeta($data->getTitle() . GeneralService::APP_KEYWORDS ?? GeneralServi
     </div> -->
 
 
-</section><!--end section-->
+    </section><!--end section-->
+
+    
+
+
+<?php endif ?>

@@ -8,8 +8,10 @@ use Application\Controller\ApplicationController;
 use Application\Controller\Factory\ApplicationControllerFactory;
 use Application\Controller\Factory\IndexControllerFactory;
 use Application\Controller\Factory\NewsControllerFactory;
+use Application\Controller\Factory\SeekerControllerFactory;
 use Application\Controller\IndexController;
 use Application\Controller\NewsController;
+use Application\Controller\SeekerController;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
@@ -44,7 +46,7 @@ return [
                         'controller' => IndexController::class,
                         "interface" => "web",
                         'action'     => 'index',
-                        'id' => '[a-zA-Z0-9]*'
+                        // 'id' => '[a-zA-Z0-9]*'
                     ],
                 ],
             ],
@@ -62,7 +64,7 @@ return [
                     'defaults' => [
                         'controller' => ApplicationController::class,
                         'action'     => 'index',
-                        'id' => '[a-zA-Z0-9]*'
+                        // 'id' => '[a-zA-Z0-9]*'
                     ],
                 ],
             ],
@@ -72,12 +74,14 @@ return [
         'factories' => [
             IndexController::class => IndexControllerFactory::class,
             ApplicationController::class => ApplicationControllerFactory::class,
-            NewsController::class => NewsControllerFactory::class
+            NewsController::class => NewsControllerFactory::class,
+            SeekerController::class=>SeekerControllerFactory::class
         ],
         "aliases" => [
             "application" => ApplicationController::class,
             "news" => NewsController::class,
             "appsindex" => IndexController::class,
+            "seeker"=>SeekerController::class,
         ]
     ],
     'view_manager' => [

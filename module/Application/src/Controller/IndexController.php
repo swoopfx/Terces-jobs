@@ -10,6 +10,7 @@ use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\JsonModel;
 use Laminas\View\Model\ViewModel;
 use Application\Entity\HelpPage;
+use Recruiter\Entity\RecruiterJob;
 
 class IndexController extends AbstractActionController
 {
@@ -60,6 +61,27 @@ class IndexController extends AbstractActionController
             $response->setStatusCode(400);
         }
         return $jsonModel;
+    }
+
+
+    public function getLatestJobsAction()
+    {
+        $em = $this->entityManager;
+        $data = $em->getRepository(RecruiterJob::class)->createQueryBuilder("s")
+            ->select([
+                "partial s.{id, jobTitle, user, program, isActive, createdOn, updatedOn}",
+            ])->setMaxResults(10)->getQuery()->getArrayResult();
+        $jsonModel = new JsonModel(
+            [
+                "data" => $data
+            ]
+        );
+        return $jsonModel;
+    }
+
+    public function jobAction()
+    {
+        
     }
 
     /**
